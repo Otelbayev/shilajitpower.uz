@@ -1,13 +1,12 @@
 import { Router } from "express";
 import QuestionsController from "../controllers/questions.controller.js";
-import { verifyToken } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.get("/", verifyToken, QuestionsController.getAll);
-router.get("/:id", verifyToken, QuestionsController.getById);
-router.post("/", verifyToken, QuestionsController.create);
-router.put("/:id", verifyToken, QuestionsController.update);
-router.delete("/:id", verifyToken, QuestionsController.delete);
+router.get("/", QuestionsController.getAll);
+router.get("/:id", QuestionsController.getById);
+router.post("/", QuestionsController.create);
+router.put("/:id", QuestionsController.update);
+router.delete("/:id", QuestionsController.delete);
 
 export default router;

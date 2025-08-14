@@ -5,17 +5,17 @@ import {
   Modal,
   Form,
   Input,
-  InputNumber,
   message,
   Space,
   Card,
+  Tag,
 } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "../utils/axios";
 
-const API_URL = "/prices";
+const API_URL = "/superior";
 
-const Prices = () => {
+const Superior = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
@@ -26,7 +26,6 @@ const Prices = () => {
       const res = await axios.get(API_URL);
       setData(res.data || []);
     } catch (err) {
-      console.error(err);
       message.error("Ma'lumotni olishda xatolik!");
     }
   };
@@ -37,6 +36,7 @@ const Prices = () => {
 
   const handleSubmit = async (values) => {
     try {
+      values.fields = values.fields.split(",");
       if (editingId) {
         await axios.put(`${API_URL}/${editingId}`, values);
         message.success("Yangilandi!");
@@ -48,8 +48,7 @@ const Prices = () => {
       setOpen(false);
       form.resetFields();
       setEditingId(null);
-    } catch (err) {
-      console.error(err);
+    } catch {
       message.error("Saqlashda xatolik!");
     }
   };
@@ -59,36 +58,40 @@ const Prices = () => {
       await axios.delete(`${API_URL}/${id}`);
       message.success("O‘chirildi!");
       fetchData();
-    } catch (err) {
-      console.error(err);
+    } catch {
       message.error("O‘chirishda xatolik!");
     }
   };
 
   const handleEdit = (record) => {
     form.setFieldsValue({
-      massa: record.massa,
-      month: record.month,
+      title: record.title,
+      minTitle: record.minTitle,
+      subTitle: record.subTitle,
       description: record.description,
-      price: record.price,
-      old_price: record.old_price,
-      span: record.span,
+      fields: record.fields.join(", "),
     });
     setEditingId(record.id);
     setOpen(true);
   };
 
   const columns = [
-    { title: "Massa", dataIndex: "massa", align: "center" },
-    { title: "Month", dataIndex: "month", align: "center" },
+    { title: "Title", dataIndex: "title", align: "center" },
+    { title: "Min Title", dataIndex: "minTitle", align: "center" },
+    { title: "Sub Title", dataIndex: "subTitle", align: "center" },
     { title: "Description", dataIndex: "description", align: "center" },
-    { title: "Price", dataIndex: "price", align: "center" },
-    { title: "Old Price", dataIndex: "old_price", align: "center" },
-    { title: "span", dataIndex: "span", align: "center" },
+    {
+      title: "Fields",
+      dataIndex: "fields",
+      align: "center",
+      render: (fields) => {
+        const data = JSON.parse(fields);
+        return data?.length ? data.map((f, i) => <Tag key={i}>{f}</Tag>) : null;
+      },
+    },
     {
       title: "Actions",
       align: "center",
-      width: 50,
       render: (_, record) => (
         <Space>
           <Button
@@ -114,7 +117,7 @@ const Prices = () => {
   return (
     <div>
       <Card
-        title={<h2 className="text-xl font-bold">Prices CRUD</h2>}
+        title={<h2 className="text-xl font-bold">Superior CRUD</h2>}
         extra={
           <Button
             type="primary"
@@ -132,60 +135,51 @@ const Prices = () => {
         <Table
           size="small"
           bordered
-          className="mt-4"
           columns={columns}
           dataSource={data}
           rowKey="id"
           pagination={false}
-          scroll={{ x: "max-content" }}
         />
       </Card>
 
       <Modal
-        title={editingId ? "Edit Price" : "Add Price"}
+        title={editingId ? "Edit Superior" : "Add Superior"}
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
+          <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
           <Form.Item
-            name="massa"
-            label="Massa"
-            rules={[{ required: true, message: "Massa kiritilishi shart!" }]}
+            name="minTitle"
+            label="Min Title"
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="month"
-            label="Month"
-            rules={[{ required: true, message: "Month kiritilishi shart!" }]}
+            name="subTitle"
+            label="Sub Title"
+            rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="description"
             label="Description"
-            rules={[
-              { required: true, message: "Description kiritilishi shart!" },
-            ]}
+            rules={[{ required: true }]}
           >
-            <Input />
+            <Input.TextArea rows={3} />
           </Form.Item>
           <Form.Item
-            name="price"
-            label="Price"
-            rules={[{ required: true, message: "Price kiritilishi shart!" }]}
+            name="fields"
+            label="Fields (comma separated)"
+            rules={[{ required: true }]}
           >
-            <Input />
+            <Input placeholder="Example: Field1, Field2, Field3" />
           </Form.Item>
-          <Form.Item name="old_price" label="Old Price">
-            <Input />
-          </Form.Item>
-
-          <Form.Item name="span" label="Span">
-            <Input />
-          </Form.Item>
-
           <Button type="primary" htmlType="submit" block>
             {editingId ? "Update" : "Create"}
           </Button>
@@ -195,4 +189,4 @@ const Prices = () => {
   );
 };
 
-export default Prices;
+export default Superior;

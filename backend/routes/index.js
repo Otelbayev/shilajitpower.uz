@@ -9,6 +9,7 @@ import contactsRoutes from "./contacts.routes.js";
 import certificatesRoutes from "./certificates.routes.js";
 import pricesRoutes from "./prices.routes.js";
 import whomRoutes from "./whom.routes.js";
+import superiorRoutes from "./superior.route.js";
 import { getAllData } from "../controllers/all.controller.js";
 import {
   getOrders,
@@ -22,15 +23,17 @@ import { verifyToken } from "../middleware/auth.middleware.js";
 const router = Router();
 
 router.use("/auth", authRoutes);
-router.use("/hero", heroRoutes);
-router.use("/why", whyRoutes);
-router.use("/comments", commentsRoutes);
-router.use("/statistics", statisticsRoutes);
-router.use("/questions", questionsRoutes);
-router.use("/contacts", contactsRoutes);
-router.use("/certificates", certificatesRoutes);
-router.use("/prices", pricesRoutes);
-router.use("/whom", whomRoutes);
+router.use("/hero", verifyToken, heroRoutes);
+router.use("/why", verifyToken, whyRoutes);
+router.use("/comments", verifyToken, commentsRoutes);
+router.use("/statistics", verifyToken, statisticsRoutes);
+router.use("/questions", verifyToken, questionsRoutes);
+router.use("/contacts", verifyToken, contactsRoutes);
+router.use("/certificates", verifyToken, certificatesRoutes);
+router.use("/prices", verifyToken, pricesRoutes);
+router.use("/whom", verifyToken, whomRoutes);
+router.use("/superior", verifyToken, superiorRoutes);
+
 router.get("/all", getAllData);
 router.post("/submit", formLimiter, validateForm, submitForm);
 router.get("/orders", verifyToken, getOrders);

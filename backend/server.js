@@ -17,8 +17,37 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.set(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate"
+  );
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
+  res.set("Surrogate-Control", "no-store");
+  next();
+});
+
 app.use(bodyParser.json());
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
+// app.use(
+//   "/uploads",
+//   express.static(path.join(process.cwd(), "uploads"), {
+//     setHeaders: (res) => {
+//       res.set(
+//         "Cache-Control",
+//         "no-store, no-cache, must-revalidate, proxy-revalidate"
+//       );
+//     },
+//   })
+// );
+
+app.use(
+  "/uploads",
+  express.static(path.join(process.cwd(), "uploads"), {
+    maxAge: "7d", // 7 kun keshlash
+  })
+);
 
 app.use("/api", routes);
 

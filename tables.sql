@@ -30,7 +30,7 @@ CREATE TABLE comments (
 
 CREATE TABLE statistics (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    count INT NOT NULL,
+    count TEXT NOT NULL,
     description TEXT NOT NULL
 );
 
@@ -42,14 +42,14 @@ CREATE TABLE questions (
 
 CREATE TABLE contacts (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  icon VARCHAR(255) NOT NULL,
+  icon VARCHAR(255),
   name VARCHAR(255) NOT NULL,
   link VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE certificates (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  image VARCHAR(255) NOT NULL,
+  image VARCHAR(255),
   title VARCHAR(255) NOT NULL,
   subtitle VARCHAR(255) NOT NULL,
   description TEXT NOT NULL
@@ -60,13 +60,15 @@ CREATE TABLE prices (
   massa VARCHAR(100) NOT NULL,
   month VARCHAR(100) NOT NULL,
   description TEXT,
-  price DECIMAL(10,2) NOT NULL
+  price DECIMAL(10,2) NOT NULL,
+  old_price VARCHAR(100),
+  span VARCHAR(100)
 );
 
 CREATE TABLE whom (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    image VARCHAR(255) NOT NULL,
-    icon VARCHAR(100) NOT NULL,
+    image VARCHAR(255),
+    icon VARCHAR(100) ,
     who VARCHAR(255) NOT NULL,
     problem TEXT NOT NULL,
     solution TEXT NOT NULL,
@@ -85,3 +87,13 @@ CREATE TABLE orders (
     FOREIGN KEY (type_id) REFERENCES prices(id) ON DELETE CASCADE
 );
 
+
+
+CREATE TABLE superior (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  minTitle VARCHAR(255) NOT NULL,
+  subTitle VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  fields JSON NOT NULL
+);

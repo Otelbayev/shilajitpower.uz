@@ -1,15 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Table,
-  Button,
-  Modal,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Space,
-  Card,
-} from "antd";
+import { Table, Button, Modal, Form, Input, message, Space, Card } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "../utils/axios";
 
@@ -35,7 +25,7 @@ const Statistics = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values) => 
     try {
       if (editingId) {
         await axios.put(`${API_URL}/${editingId}`, values);
@@ -145,7 +135,7 @@ const Statistics = () => {
             label="Count"
             rules={[{ required: true, message: "Count kiritilishi shart!" }]}
           >
-            <InputNumber min={0} style={{ width: "100%" }} />
+            <Input min={0} style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             name="description"

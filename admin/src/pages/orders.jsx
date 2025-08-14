@@ -108,7 +108,7 @@ const Orders = () => {
       dataIndex: "status",
       render: (a) =>
         a === "pending" ? (
-          <Tag color="blue">Jarayonda</Tag>
+          <Tag color="red">Javob berilmagan</Tag>
         ) : a === "approved" ? (
           <Tag color="green">Gaplashilgan</Tag>
         ) : null,

@@ -11,6 +11,7 @@ export const getAllData = async (req, res) => {
     const [statistics] = await db.query("SELECT * FROM statistics");
     const [whom] = await db.query("SELECT * FROM whom");
     const [why] = await db.query("SELECT * FROM why");
+    const [superior] = await db.query("SELECT * FROM superior");
 
     res.json({
       certificates,
@@ -22,6 +23,7 @@ export const getAllData = async (req, res) => {
       statistics,
       whom,
       why,
+      superior,
     });
   } catch (error) {
     console.error(error);

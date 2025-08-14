@@ -9,6 +9,7 @@ import {
   MailQuestion,
   Contact2,
   ListOrdered,
+  Backpack,
 } from "lucide-react";
 
 export const sidebar = [
@@ -26,6 +27,11 @@ export const sidebar = [
     key: "why",
     label: "Why",
     icon: <HelpCircle size={25} />,
+  },
+  {
+    key: "/superior",
+    label: "Superior",
+    icon: <Backpack />,
   },
   {
     key: "certificates",

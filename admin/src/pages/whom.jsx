@@ -142,8 +142,10 @@ const Whom = () => {
       title: "Benefits",
       dataIndex: "benefits",
       align: "center",
-
-      render: (arr) => (arr ? arr.join(", ") : ""),
+      render: (arr) => {
+        const array = JSON.parse(arr);
+        return array?.length ? array.join(",") : "";
+      },
     },
     {
       title: "Actions",

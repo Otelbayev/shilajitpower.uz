@@ -24,10 +24,10 @@ class PricesController {
 
   async create(req, res) {
     try {
-      const { massa, month, description, price } = req.body;
+      const { massa, month, description, price, old_price, span } = req.body;
       const [result] = await db.query(
-        "INSERT INTO prices (massa, month, description, price) VALUES (?, ?, ?, ?)",
-        [massa, month, description, price]
+        "INSERT INTO prices (massa, month, description, price, old_price, span) VALUES (?, ?, ?, ?)",
+        [massa, month, description, price, old_price, span]
       );
       res.json({ message: "Price created", id: result.insertId });
     } catch (err) {
@@ -38,10 +38,10 @@ class PricesController {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const { massa, month, description, price } = req.body;
+      const { massa, month, description, price, old_price, span } = req.body;
       const [result] = await db.query(
-        "UPDATE prices SET massa=?, month=?, description=?, price=? WHERE id=?",
-        [massa, month, description, price, id]
+        "UPDATE prices SET massa=?, month=?, description=?, price=? , old_price=?, span=? WHERE id=?",
+        [massa, month, description, price, old_price, span, id]
       );
       if (result.affectedRows === 0)
         return res.status(404).json({ message: "Not found" });

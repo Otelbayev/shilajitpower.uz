@@ -13,6 +13,7 @@ const Comments = lazy(() => import("../pages/comments"));
 const Questions = lazy(() => import("../pages/questions"));
 const Contacts = lazy(() => import("../pages/contacts"));
 const Orders = lazy(() => import("../pages/orders"));
+const Superior = lazy(() => import("../pages/superior"));
 
 export const page = [
   {
@@ -38,6 +39,10 @@ export const adminPage = [
   {
     path: "/why",
     element: <Why />,
+  },
+  {
+    path: "/superior",
+    element: <Superior />,
   },
   {
     path: "/certificates",
