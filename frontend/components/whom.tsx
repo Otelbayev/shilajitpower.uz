@@ -78,16 +78,17 @@ export default function TargetGroups({ data }: Props) {
             data.map((item, index) => {
               const Icon = iconMap[item.icon];
 
-              let ben: string[] = [];
-              try {
-                if (item.benefits) {
-                  const parsed = JSON.parse(item.benefits);
-                  if (Array.isArray(parsed)) {
-                    ben = parsed as string[];
-                  }
+              const ben: string[] = [];
+              if (item.benefits) {
+                try {
+                  const parsed =
+                    typeof item.benefits === "string"
+                      ? JSON.parse(item.benefits)
+                      : item.benefits;
+                  if (Array.isArray(parsed)) ben.push(...(parsed as string[]));
+                } catch (err) {
+                  console.warn("Benefits parse error:", err);
                 }
-              } catch (error) {
-                console.warn("Benefits parse error:", error);
               }
 
               return (

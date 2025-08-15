@@ -111,7 +111,7 @@ export default function Footer({ data }: Props) {
           <p className="font-semibold text-[#e6c65a] mb-1">Muhim eslatma:</p>
           <p>
             Bu mahsulot kasalliklarni davolash oldini olish yoki tashxis
-            qo&aposyish uchun mo'ljallanmagan...
+            qo&aposyish uchun mo&aposljallanmagan...
           </p>
         </motion.div>
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Price } from "@/types/api";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { PriceCard } from "./price-plan";
 
 interface Props {

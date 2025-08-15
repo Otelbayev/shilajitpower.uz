@@ -41,7 +41,9 @@ export default function ShilajitSection({ data }: Props) {
 
   const activeContent = tabs.find((tab) => tab.key === activeTab);
 
-  const jsonData = activeContent?.benefits
+  const jsonData: string[] = Array.isArray(activeContent?.benefits)
+    ? activeContent.benefits
+    : activeContent?.benefits
     ? JSON.parse(activeContent.benefits)
     : [];
 

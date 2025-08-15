@@ -38,7 +38,7 @@ export default function DataProvider({ children }: DataProviderProps) {
         const json: ApiData = await res.json();
         setData(json);
       } catch (error) {
-        console.error("API dan ma'lumot olishda xato:", error);
+        console.error("API dan ma&aposlumot olishda xato:", error);
       } finally {
         setLoading(false);
       }

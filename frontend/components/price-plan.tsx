@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Crown, X } from "lucide-react";
+import { Check, Crown } from "lucide-react";
 import clsx from "clsx";
-import axios from "axios";
 import { useModalContext } from "@/context/modal-context";
 
 export interface Price {
@@ -66,7 +64,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
                 ? `${discountedPrice}.000`
                 : originalPrice
               ).toLocaleString()}{" "}
-              so'm
+              so&aposm
             </div>
 
             {isSubscription && (
