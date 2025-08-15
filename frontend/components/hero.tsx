@@ -3,6 +3,7 @@ import { HeroSection } from "@/types/api";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 interface HeroProps {
   data?: HeroSection;
@@ -20,7 +21,7 @@ const fadeUp = {
 export default function ShilajitHero({ data }: HeroProps) {
   return (
     <div className="container">
-      <div className="relative min-h-screen py-10 lg:py-0 flex flex-col justify-center">
+      <div className="relative min-h-screen mt-30 py-10 lg:py-0  flex flex-col justify-center">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-30">
           {/* Left Content */}
           <motion.div

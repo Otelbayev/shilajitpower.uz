@@ -75,6 +75,15 @@ export default function HomePage() {
 
   return (
     <main>
+      <video
+        autoPlay
+        muted
+        controls={false}
+        loop
+        className="rotate-180 absolute  top-[-340px]  h-full w-full left-0 z-[-10] object-cover "
+      >
+        <source src="/blackhole.webm" type="video/webm" />
+      </video>
       {modalOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full z-85 bg-black/70 backdrop-blur-sm"
