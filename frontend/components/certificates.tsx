@@ -52,7 +52,7 @@ const Certificates = ({ data, statistics }: Props) => {
           variants={fadeUp}
           custom={0.3}
         >
-          Xalqaro standartlar bo&aposyicha tasdiqlangan sifat kafolatlari
+          Xalqaro standartlar bo&apos;yicha tasdiqlangan sifat kafolatlari
         </motion.p>
 
         <section className="py-12">

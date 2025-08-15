@@ -105,7 +105,7 @@ export default function HomePage() {
                 {modalOpen?.isSubscription
                   ? `${discountedPrice}.000`
                   : originalPrice}{" "}
-                so&aposm
+                so&apos;m
               </div>
 
               {success ? (

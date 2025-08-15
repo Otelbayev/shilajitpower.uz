@@ -4,11 +4,12 @@ const nextConfig: NextConfig = {
   output: "export",
   distDir: "build",
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
-        protocol: "http", // yoki "https" agar rasm HTTPS da bo‘lsa
+        protocol: "https",
         hostname: "pay.dezex.uz",
-        pathname: "/uploads/**", // kerakli path, barcha rasm fayllarini qamrab olish uchun /** ishlatish mumkin
+        pathname: "/uploads/**",
       },
     ],
   },

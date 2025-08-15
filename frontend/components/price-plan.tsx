@@ -64,7 +64,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
                 ? `${discountedPrice}.000`
                 : originalPrice
               ).toLocaleString()}{" "}
-              so&aposm
+              so&apos;m
             </div>
 
             {isSubscription && (

@@ -35,7 +35,7 @@ export default function ShilajitHero({ data }: HeroProps) {
               custom={0.1}
             >
               <div className="w-2 h-2 bg-[#e6c65a] rounded-full"></div>
-              Haqiqiy Himoloy tog&aposlaridan
+              Haqiqiy Himoloy tog&apos;laridan
             </motion.div>
 
             <motion.div variants={fadeUp} custom={0.2}>
@@ -87,14 +87,14 @@ export default function ShilajitHero({ data }: HeroProps) {
             <motion.div
               className="inline-block text-center lg:text-left bg-[#e6c65a]/15 border border-[#e6c65a]/30 rounded-xl lg:px-6 lg:py-4 py-2 px-4 text-[#e6c65a] text-xs lg:text-sm font-medium"
               variants={fadeUp}
-              custom={0.6}
+              custom={0.5}
             >
               {data?.microelements}
             </motion.div>
 
             <Link href="#order">
               <motion.button
-                className="w-fit cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#e6c65a]/30"
+                className="w-fit cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl  hover:scale-101 hover:shadow-lg hover:shadow-[#e6c65a]/30"
                 variants={fadeUp}
                 custom={0.7}
               >

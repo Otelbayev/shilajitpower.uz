@@ -66,7 +66,7 @@ export default function ShilajitSection({ data }: Props) {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Card */}
           <motion.div
-            className="bg-[#1A1A1A] rounded-2xl p-6 flex-1 shadow-lg border border-[#2A2A2A] transition-all duration-300 ease-out hover:scale-101 relative overflow-hidden group"
+            className="bg-[#1A1A1A] rounded-2xl p-6 flex-1 shadow-lg border border-[#2A2A2A] hover:scale-101 relative overflow-hidden group"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -139,7 +139,7 @@ export default function ShilajitSection({ data }: Props) {
               {activeContent && (
                 <motion.div
                   key={activeTab}
-                  className="bg-[#1A1A1A] rounded-2xl p-6 shadow-lg border border-[#2A2A2A] transition-all duration-300 ease-out hover:scale-101 relative overflow-hidden group"
+                  className="bg-[#1A1A1A] rounded-2xl p-6 shadow-lg border border-[#2A2A2A]  hover:scale-101 relative overflow-hidden group"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
