@@ -1,15 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { Question } from "@/types/api";
+import { ChevronDown, Phone, Send } from "lucide-react";
+import { Contact, Question } from "@/types/api";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
   data?: Question[];
+  contacts?: Contact[];
 }
 
-export default function Questions({ data }: Props) {
+const mock = [
+  { icon: <Phone className="h-5 w-5" />, tone: "emerald" },
+  { icon: <Send className="h-5 w-5" />, tone: "sky" },
+];
+
+export default function Questions({ data, contacts }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (index: number) => {
@@ -98,19 +104,17 @@ export default function Questions({ data }: Props) {
             </p>
           </div>
           <div className="flex gap-3">
-            <a
-              href="https://t.me/ShilajitPowerUz"
-              target="_blank"
-              className="px-5 py-2 rounded-full border border-[#e6c65a] text-[#e6c65a] hover:bg-[#e6c65a] hover:text-black transition font-medium"
-            >
-              Telegram orqali
-            </a>
-            <a
-              href="tel:+998901234567"
-              className="px-5 py-2 rounded-full bg-[#e6c65a] text-black hover:bg-[#d4b84f] transition font-medium"
-            >
-              Qo&apos;ng&apos;iroq qiling
-            </a>
+            {contacts?.length &&
+              contacts.map((item, index) => (
+                <a
+                  href={item.link}
+                  key={item.id}
+                  target="_blank"
+                  className="px-5 flex gap-2 items-center py-2 text-center md:text-left rounded-full border border-[#e6c65a] text-[#e6c65a] hover:bg-[#e6c65a] hover:text-black transition font-medium"
+                >
+                  {mock[index].icon} {item.name}
+                </a>
+              ))}
           </div>
         </motion.div>
       </motion.div>

@@ -74,22 +74,25 @@ export default function BenefitsSection({ data }: Props) {
           {data?.map((item, index) => (
             <motion.div
               key={index}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 text-left backdrop-blur-sm 
-                relative overflow-hidden group hover:-translate-y-2 hover:bg-white/10 hover:shadow-lg hover:shadow-[#e6c65a]/10"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={fadeUp}
               custom={0.1 * index + 0.4}
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
-              <div className="w-12 h-12 bg-[#e6c65a]/10 rounded-xl flex items-center justify-center mb-4">
-                {item.icon || benefits[index]}
+              <div
+                className="bg-white/5 transition-all duration-300 border border-white/10 rounded-2xl p-6 text-left backdrop-blur-sm 
+                relative group hover:-translate-y-2 hover:bg-white/10 hover:shadow-lg hover:shadow-[#e6c65a]/10"
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
+                <div className="w-12 h-12 bg-[#e6c65a]/10 rounded-xl flex items-center justify-center mb-4">
+                  {item.icon || benefits[index]}
+                </div>
+                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {item.description}
-              </p>
             </motion.div>
           ))}
         </div>

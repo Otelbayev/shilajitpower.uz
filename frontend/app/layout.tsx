@@ -22,26 +22,29 @@ export const metadata: Metadata = {
     "shilajit uz",
     "shilajit dorisi",
   ],
-  authors: [{ name: "Shilajit Power", url: "https://shilajitpower.uz" }],
+  icons: {
+    icon: "/icon.png",
+  },
+  authors: [{ name: "Shilajit Power", url: "https://dezex.uz" }],
   creator: "Shilajit Power Team",
   publisher: "Shilajit Power",
-  metadataBase: new URL("https://shilajitpower.uz"),
+  metadataBase: new URL("https://dezex.uz"),
   alternates: {
-    canonical: "https://shilajitpower.uz",
+    canonical: "https://dezex.uz",
     languages: {
-      uz: "https://shilajitpower.uz/uz",
-      ru: "https://shilajitpower.uz/ru",
+      uz: "https://dezex.uz",
+      ru: "https://dezex.uz",
     },
   },
   openGraph: {
     title: "Shilajit Power – Tabiiy Energiya va Salomatlik Manbai",
     description:
       "Organik tarkibli shilajit vositasi bilan sog‘ligingizni mustahkamlang. 100% tabiiy, erkaklar va ayollar uchun foydali.",
-    url: "https://shilajitpower.uz",
+    url: "https://dezex.uz",
     siteName: "Shilajit Power",
     images: [
       {
-        url: "https://shilajitpower.uz/og-image.jpg",
+        url: "https://dezex.uz/image.webp",
         width: 1200,
         height: 630,
         alt: "Shilajit Power – Tabiiy Kuch",
@@ -54,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shilajit Power – Tabiiy Kuch Va Energiya Manbai",
     description: "100% tabiiy shilajit mahsuloti, kuch va bardamlik uchun.",
-    images: ["https://shilajitpower.uz/og-image.jpg"],
+    images: ["https://dezex.uz/image.webp"],
     site: "@shilajitpower",
     creator: "@shilajitpower",
   },

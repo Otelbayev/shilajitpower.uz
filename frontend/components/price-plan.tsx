@@ -32,7 +32,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
     <>
       <div
         className={clsx(
-          "rounded-2xl p-6 h-full text-white shadow-lg border border-gray-700 relative flex flex-col justify-between",
+          "transition-all duration-300  hover:scale-101  group rounded-2xl p-6 h-full text-white shadow-lg border border-gray-700 relative flex flex-col justify-between",
           index === 1 ? "bg-[#1a1a1a] ring-2 ring-[#e6c65a]" : "bg-[#121212]"
         )}
       >
@@ -43,6 +43,8 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
             </span>
           </div>
         )}
+
+        <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
 
         <div>
           <div className="text-white text-2xl font-semibold mb-2">
@@ -123,7 +125,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
         <motion.button
           whileTap={{ scale: 0.97 }}
           onClick={() => setModalOpen({ ...data, isSubscription })}
-          className="bg-[#e6c65a] cursor-pointer text-black font-semibold w-full py-2 rounded-lg hover:brightness-110 transition"
+          className="bg-[#e6c65a]  relative z-80 cursor-pointer text-black font-semibold w-full py-2 rounded-lg hover:brightness-110 transition"
         >
           Buyurtma berish
         </motion.button>

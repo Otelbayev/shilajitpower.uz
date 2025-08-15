@@ -23,7 +23,7 @@ const StatCard = ({ stat, idx }: { stat: Statistic; idx: number }) => {
   return (
     <motion.div
       key={stat.id}
-      className="bg-[#111] rounded-xl p-6 text-center relative overflow-hidden group"
+      className="bg-[#111] rounded-xl p-6 text-center relative group"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       onViewportEnter={() => {

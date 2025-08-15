@@ -66,44 +66,46 @@ export default function ShilajitSection({ data }: Props) {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Card */}
           <motion.div
-            className="bg-[#1A1A1A] rounded-2xl p-6 flex-1 shadow-lg border border-[#2A2A2A] hover:scale-101 relative overflow-hidden group"
+            className="bg-[#1A1A1A] rounded-2xl  flex-1 shadow-lg border border-[#2A2A2A] "
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
             custom={0.2}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
-            <h3 className="text-center text-lg font-semibold mb-4">
-              Mahsulot tarkibi
-            </h3>
-            <div className="text-center text-5xl font-bold text-[#e6c65a]">
-              500mg
-            </div>
-            <p className="text-center text-gray-400 mb-6">
-              Tozalangan shilajit
-            </p>
+            <div className="hover:scale-101 p-6 relative group transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
+              <h3 className="text-center text-lg font-semibold mb-4">
+                Mahsulot tarkibi
+              </h3>
+              <div className="text-center text-5xl font-bold text-[#e6c65a]">
+                500mg
+              </div>
+              <p className="text-center text-gray-400 mb-6">
+                Tozalangan shilajit
+              </p>
 
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-[#3A3A3A] rounded-lg py-3 text-center">
-                <span className="text-[#e6c65a] font-semibold">1x</span>
-                <p className="text-sm text-gray-300">Kunlik doza</p>
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="bg-[#3A3A3A] rounded-lg py-3 text-center">
+                  <span className="text-[#e6c65a] font-semibold">1x</span>
+                  <p className="text-sm text-gray-300">Kunlik doza</p>
+                </div>
+                <div className="bg-[#3A3A3A] rounded-lg py-3 text-center">
+                  <span className="text-[#e6c65a] font-semibold">50g</span>
+                  <p className="text-sm text-gray-300">Umumiy miqdor</p>
+                </div>
               </div>
-              <div className="bg-[#3A3A3A] rounded-lg py-3 text-center">
-                <span className="text-[#e6c65a] font-semibold">50g</span>
-                <p className="text-sm text-gray-300">Umumiy miqdor</p>
-              </div>
-            </div>
 
-            <div>
-              <p className="text-sm text-gray-300 mb-1">Tozalik darajasi</p>
-              <div className="w-full bg-[#3A3A3A] h-3 rounded-full overflow-hidden">
-                <div
-                  className="bg-[#e6c65a] h-3"
-                  style={{ width: "99.5%" }}
-                ></div>
+              <div>
+                <p className="text-sm text-gray-300 mb-1">Tozalik darajasi</p>
+                <div className="w-full bg-[#3A3A3A] h-3 rounded-full overflow-hidden">
+                  <div
+                    className="bg-[#e6c65a] h-3"
+                    style={{ width: "99.5%" }}
+                  ></div>
+                </div>
+                <p className="text-right text-xs text-gray-400 mt-1">99.5%</p>
               </div>
-              <p className="text-right text-xs text-gray-400 mt-1">99.5%</p>
             </div>
           </motion.div>
 
@@ -139,35 +141,37 @@ export default function ShilajitSection({ data }: Props) {
               {activeContent && (
                 <motion.div
                   key={activeTab}
-                  className="bg-[#1A1A1A] rounded-2xl p-6 shadow-lg border border-[#2A2A2A]  hover:scale-101 relative overflow-hidden group"
+                  className="bg-[#1A1A1A] rounded-2xl shadow-lg border border-[#2A2A2A] "
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-[#2A2A2A] p-2 rounded-lg">
-                      {activeContent.icon}
+                  <div className="p-6 transition-all duration-300  hover:scale-101 relative group">
+                    <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="bg-[#2A2A2A] p-2 rounded-lg">
+                        {activeContent.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold">
+                          {activeContent.title}
+                        </h4>
+                        <p className="text-[#e6c65a] font-medium">
+                          {activeContent.percentage}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-lg font-semibold">
-                        {activeContent.title}
-                      </h4>
-                      <p className="text-[#e6c65a] font-medium">
-                        {activeContent.percentage}
-                      </p>
-                    </div>
+                    <p className="text-gray-300 mb-4">
+                      {activeContent.description}
+                    </p>
+                    <h5 className="font-semibold mb-2">Asosiy foydalar:</h5>
+                    <ul className="list-disc list-inside space-y-1 text-gray-300">
+                      {jsonData.map((benefit, index) => (
+                        <li key={index}>{benefit}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-gray-300 mb-4">
-                    {activeContent.description}
-                  </p>
-                  <h5 className="font-semibold mb-2">Asosiy foydalar:</h5>
-                  <ul className="list-disc list-inside space-y-1 text-gray-300">
-                    {jsonData.map((benefit, index) => (
-                      <li key={index}>{benefit}</li>
-                    ))}
-                  </ul>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -94,7 +94,7 @@ export default function ShilajitHero({ data }: HeroProps) {
 
             <Link href="#order">
               <motion.button
-                className="w-fit cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl  hover:scale-101 hover:shadow-lg hover:shadow-[#e6c65a]/30"
+                className="w-fit relative z-80 cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl  hover:scale-101 hover:shadow-lg hover:shadow-[#e6c65a]/30"
                 variants={fadeUp}
                 custom={0.7}
               >

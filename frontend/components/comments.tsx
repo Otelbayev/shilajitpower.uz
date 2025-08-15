@@ -36,7 +36,7 @@ export default function Comments({ data, statistics }: Props) {
             data.map((r, i) => (
               <motion.div
                 key={i}
-                className="relative rounded-xl border overflow-hidden group border-transparent bg-[#111] p-5 shadow-lg"
+                className="relative rounded-xl border group border-transparent bg-[#111] p-5 shadow-lg"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}

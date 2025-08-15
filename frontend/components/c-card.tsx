@@ -16,7 +16,7 @@ export const CertificateCard = ({ data }: { data: Certificate }) => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.3 }}
-        className="bg-gradient-to-b from-neutral-900 to-black rounded-2xl p-6 text-center shadow-md border border-neutral-800 flex flex-col items-center gap-4 transition-all duration-300 ease-out relative overflow-hidden group"
+        className="bg-gradient-to-b from-neutral-900 to-black rounded-2xl p-6 text-center shadow-md border border-neutral-800 flex flex-col items-center gap-4 transition-all duration-300 ease-out relative group"
       >
         {/* Hover Glow Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#e6c65a]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
@@ -63,7 +63,7 @@ export const CertificateCard = ({ data }: { data: Certificate }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+            className="absolute inset-0 z-50 flex items-center justify-center bg-black/80"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
@@ -76,7 +76,7 @@ export const CertificateCard = ({ data }: { data: Certificate }) => {
             >
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute -top-10 right-0 text-white hover:text-[#e6c65a]"
+                className="fixed -top-10 right-0 text-white hover:text-[#e6c65a]"
               >
                 <X size={28} />
               </button>

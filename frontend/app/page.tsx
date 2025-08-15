@@ -49,8 +49,10 @@ export default function HomePage() {
       setName("");
       setPhone("");
       setSuccess(true);
-
-      setTimeout(() => setModalOpen(null), 2000);
+      setTimeout(() => {
+        setModalOpen(null);
+        setSuccess(false);
+      }, 2000);
     } catch (err) {
       console.error(err);
     } finally {
@@ -75,77 +77,85 @@ export default function HomePage() {
     <main>
       {modalOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full z-20 bg-black/70 backdrop-blur-sm"
-          onClick={() => setModalOpen(null)}
+          className="fixed top-0 left-0 w-full h-full z-85 bg-black/70 backdrop-blur-sm"
+          onClick={() => {
+            setModalOpen(null);
+            setSuccess(false);
+          }}
         />
       )}
 
       <AnimatePresence>
         {modalOpen && (
-          <motion.div
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[400px] z-50"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            <motion.div className="bg-[#1a1a1a] rounded-3xl p-6 pb-8 shadow-lg">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold text-white">
-                  Buyurtma berish
-                </h2>
-                <X
-                  className="w-6 h-6 cursor-pointer text-white"
-                  onClick={() => setModalOpen(null)}
-                />
-              </div>
-
-              <div className="mb-4 text-gray-300">
-                <strong>{modalOpen.massa}</strong> -{" "}
-                {modalOpen?.isSubscription
-                  ? `${discountedPrice}.000`
-                  : originalPrice}{" "}
-                so&apos;m
-              </div>
-
-              {success ? (
-                <div className="flex items-center gap-2 text-green-500 font-semibold">
-                  <Check className="w-5 h-5" /> Buyurtma muvaffaqiyatli
-                  yuborildi!
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                  <input
-                    type="text"
-                    placeholder="Ism"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="p-2 rounded-lg bg-gray-800 text-white"
-                  />
-                  <input
-                    type="tel"
-                    placeholder="+998XXXXXXXXX"
-                    value={phone}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setPhone(val);
+          <div>
+            <motion.div
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] mx-auto md:w-[400px] z-90"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              <motion.div className="bg-[#1a1a1a] rounded-3xl p-6 pb-8 shadow-lg">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-semibold text-white">
+                    Buyurtma berish
+                  </h2>
+                  <X
+                    className="w-6 h-6 cursor-pointer text-white"
+                    onClick={() => {
+                      setModalOpen(null);
+                      setSuccess(false);
                     }}
-                    required
-                    className="p-2 rounded-lg bg-gray-800 text-white"
                   />
+                </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading1}
-                    className="bg-[#e6c65a] text-black py-2 rounded-lg font-semibold hover:brightness-110 transition"
-                  >
-                    {loading1 ? "Yuborilmoqda..." : "Yuborish"}
-                  </button>
-                </form>
-              )}
+                <div className="mb-4 text-gray-300">
+                  <strong>{modalOpen.massa}</strong> -{" "}
+                  {modalOpen?.isSubscription
+                    ? `${discountedPrice}.000`
+                    : originalPrice}{" "}
+                  so&apos;m
+                </div>
+
+                {success ? (
+                  <div className="flex items-center gap-2 text-green-500 font-semibold">
+                    <Check className="w-5 h-5" /> Buyurtma muvaffaqiyatli
+                    yuborildi!
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <input
+                      type="text"
+                      placeholder="Ism"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                      className="p-2 rounded-lg bg-gray-800 text-white"
+                    />
+                    <input
+                      type="tel"
+                      placeholder="+998XXXXXXXXX"
+                      value={phone}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setPhone(val);
+                      }}
+                      required
+                      className="p-2 rounded-lg bg-gray-800 text-white"
+                    />
+
+                    <button
+                      type="submit"
+                      disabled={loading1}
+                      className="bg-[#e6c65a] text-black py-2 rounded-lg font-semibold hover:brightness-110 transition"
+                    >
+                      {loading1 ? "Yuborilmoqda..." : "Yuborish"}
+                    </button>
+                  </form>
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -164,8 +174,10 @@ export default function HomePage() {
         data={data?.comments}
         statistics={data?.statistics.slice(4, 8)}
       />
-      <Questions data={data?.questions} />
-      <Footer data={data?.contacts} />
+      <Questions data={data?.questions} contacts={data?.contacts.slice(0, 2)} />
+      <section id="contact">
+        <Footer data={data?.contacts} />
+      </section>
     </main>
   );
 }
