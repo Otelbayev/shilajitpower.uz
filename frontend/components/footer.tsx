@@ -34,10 +34,11 @@ export default function Footer({ data }: Props) {
             <div className="w-16 h-1 bg-[#e6c65a] rounded mt-3 mb-6" />
 
             <p className="text-neutral-300 leading-relaxed max-w-2xl">
-              Biz tabiatning eng qudratli sovg'asi bo'lgan Shilajitni yuqori
-              sifat va samaradorlik bilan taqdim etamiz. Himalay tog'larining
-              qudrati va ming yillik tabiat kuchi – har bir erkakka yangi
-              energiya, kuch va ishonch berish bizning missiyamizdir.
+              Biz tabiatning eng qudratli sovg&aposasi bo&aposlgan Shilajitni
+              yuqori sifat va samaradorlik bilan taqdim etamiz. Himalay
+              tog&aposlarining qudrati va ming yillik tabiat kuchi – har bir
+              erkakka yangi energiya, kuch va ishonch berish bizning
+              missiyamizdir.
             </p>
 
             <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
@@ -68,7 +69,7 @@ export default function Footer({ data }: Props) {
             viewport={{ once: true, amount: 0.3 }}
           >
             <h3 className="text-xl font-semibold text-neutral-200 mb-4">
-              Bog'lanish
+              Bog&aposlanish
             </h3>
             <div className="flex flex-col gap-4">
               {data?.length &&
@@ -109,8 +110,8 @@ export default function Footer({ data }: Props) {
         >
           <p className="font-semibold text-[#e6c65a] mb-1">Muhim eslatma:</p>
           <p>
-            Bu mahsulot kasalliklarni davolash, oldini olish yoki tashxis
-            qo'yish uchun mo'ljallanmagan...
+            Bu mahsulot kasalliklarni davolash oldini olish yoki tashxis
+            qo&aposyish uchun mo'ljallanmagan...
           </p>
         </motion.div>
 

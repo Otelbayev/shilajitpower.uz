@@ -35,7 +35,7 @@ export default function ShilajitHero({ data }: HeroProps) {
               custom={0.1}
             >
               <div className="w-2 h-2 bg-[#e6c65a] rounded-full"></div>
-              Haqiqiy Himoloy tog'laridan
+              Haqiqiy Himoloy tog&aposlaridan
             </motion.div>
 
             <motion.div variants={fadeUp} custom={0.2}>

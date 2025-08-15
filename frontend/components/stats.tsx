@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { Statistic } from "@/types/api";
 

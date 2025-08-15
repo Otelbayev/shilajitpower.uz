@@ -27,10 +27,12 @@ export default function Questions({ data }: Props) {
       >
         {/* Title */}
         <h2 className="text-center text-3xl md:text-5xl font-extrabold mb-5">
-          Tez-tez <span className="text-[#e6c65a]">so'raladigan</span> savollar
+          Tez-tez <span className="text-[#e6c65a]">so&aposraladigan</span>{" "}
+          savollar
         </h2>
         <p className="text-center text-gray-400 mt-3">
-          Shilajit POWER haqida eng ko'p so'raladigan savollar va javoblar
+          Shilajit POWER haqida eng ko&aposp so&aposraladigan savollar va
+          javoblar
         </p>
         <div className="w-16 h-1 bg-[#e6c65a] mx-auto mt-3 rounded mb-10" />
 
@@ -107,7 +109,7 @@ export default function Questions({ data }: Props) {
               href="tel:+998901234567"
               className="px-5 py-2 rounded-full bg-[#e6c65a] text-black hover:bg-[#d4b84f] transition font-medium"
             >
-              Qo'ng'iroq qiling
+              Qo&aposng&aposiroq qiling
             </a>
           </div>
         </motion.div>

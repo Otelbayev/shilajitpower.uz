@@ -12,12 +12,12 @@ import { motion } from "framer-motion";
 
 // Default iconlar (#e6c65a rang bilan)
 const benefits = [
-  <Bolt className="w-6 h-6 text-[#e6c65a]" />,
-  <BatteryCharging className="w-6 h-6 text-[#e6c65a]" />,
-  <Shield className="w-6 h-6 text-[#e6c65a]" />,
-  <Focus className="w-6 h-6 text-[#e6c65a]" />,
-  <Droplets className="w-6 h-6 text-[#e6c65a]" />,
-  <RefreshCw className="w-6 h-6 text-[#e6c65a]" />,
+  <Bolt key="bolt" className="w-6 h-6 text-[#e6c65a]" />,
+  <BatteryCharging key="battery" className="w-6 h-6 text-[#e6c65a]" />,
+  <Shield key="shield" className="w-6 h-6 text-[#e6c65a]" />,
+  <Focus key="focus" className="w-6 h-6 text-[#e6c65a]" />,
+  <Droplets key="droplets" className="w-6 h-6 text-[#e6c65a]" />,
+  <RefreshCw key="refresh" className="w-6 h-6 text-[#e6c65a]" />,
 ];
 
 interface Props {
