@@ -1,15 +1,37 @@
-import { Phone, Send, Instagram, Mail, Diamond } from "lucide-react";
+"use client";
 
-export default function Footer() {
+import { Contact } from "@/types/api";
+import { Phone, Send, Instagram, Mail, Diamond } from "lucide-react";
+import { motion } from "framer-motion";
+import { JSX } from "react";
+
+interface Props {
+  data?: Contact[];
+}
+
+export default function Footer({ data }: Props) {
+  const mock = [
+    { icon: <Phone className="h-5 w-5" />, tone: "emerald" },
+    { icon: <Send className="h-5 w-5" />, tone: "sky" },
+    { icon: <Instagram className="h-5 w-5" />, tone: "fuchsia" },
+    { icon: <Mail className="h-5 w-5" />, tone: "yellow" },
+  ];
+
   return (
     <footer className="container">
       <div className="px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-wide text-yellow-400 font-serif">
+          {/* Left */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-wide text-[#e6c65a]">
               SHILAJIT POWER
             </h2>
-            <div className="w-16 h-1 bg-yellow-500 rounded mt-3 mb-6" />
+            <div className="w-16 h-1 bg-[#e6c65a] rounded mt-3 mb-6" />
 
             <p className="text-neutral-300 leading-relaxed max-w-2xl">
               Biz tabiatning eng qudratli sovg'asi bo'lgan Shilajitni yuqori
@@ -18,14 +40,13 @@ export default function Footer() {
               energiya, kuch va ishonch berish bizning missiyamizdir.
             </p>
 
-            {/* badges */}
             <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
               <li className="inline-flex items-center gap-2 text-neutral-300">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400" />
                 99.5% tozalik
               </li>
               <li className="inline-flex items-center gap-2 text-neutral-300">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-yellow-400" />
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#e6c65a]" />
                 Premium sifat
               </li>
               <li className="inline-flex items-center gap-2 text-neutral-300">
@@ -37,85 +58,88 @@ export default function Footer() {
                 5000m+ balandlik
               </li>
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Right: contact cards */}
-          <div>
+          {/* Right */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <h3 className="text-xl font-semibold text-neutral-200 mb-4">
               Bog'lanish
             </h3>
             <div className="flex flex-col gap-4">
-              <ContactCard
-                href="tel:+998901234567"
-                icon={<Phone className="h-5 w-5" />}
-                tone="emerald"
-                label="Telefon"
-                value="+998 (90) 123-45-67"
-              />
-              <ContactCard
-                href="https://t.me/ShilajitPowerUz"
-                icon={<Send className="h-5 w-5" />}
-                tone="sky"
-                label="Telegram"
-                value="@ShilajitPowerUz"
-              />
-              <ContactCard
-                href="https://instagram.com/shilajit_power_uz"
-                icon={<Instagram className="h-5 w-5" />}
-                tone="fuchsia"
-                label="Instagram"
-                value="@shilajit_power_uz"
-              />
-              <ContactCard
-                href="mailto:info@shilajitpower.uz"
-                icon={<Mail className="h-5 w-5" />}
-                tone="yellow"
-                label="Email"
-                value="info@shilajitpower.uz"
-              />
+              {data?.length &&
+                data.map((item, index) => (
+                  <ContactCard
+                    key={index}
+                    href={item.link}
+                    label={item.name}
+                    value={item.icon}
+                    index={index}
+                    mock={mock}
+                  />
+                ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="flex items-center justify-center gap-6 my-12">
+        {/* Divider */}
+        <motion.div
+          className="flex items-center justify-center gap-6 my-12"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <span className="h-px w-40 bg-neutral-800" />
-          <Diamond className="h-5 w-5 text-yellow-500" />
+          <Diamond className="h-5 w-5 text-[#e6c65a]" />
           <span className="h-px w-40 bg-neutral-800" />
-        </div>
+        </motion.div>
 
-        {/* Important note */}
-        <div className="border border-yellow-700/60 rounded-2xl p-5 sm:p-6 bg-yellow-900/10 text-neutral-300 text-sm">
-          <p className="font-semibold text-yellow-400 mb-1">Muhim eslatma:</p>
+        {/* Warning */}
+        <motion.div
+          className="border border-[#e6c65a]/60 rounded-2xl p-5 sm:p-6 bg-[#e6c65a]/5 text-neutral-300 text-sm"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          <p className="font-semibold text-[#e6c65a] mb-1">Muhim eslatma:</p>
           <p>
             Bu mahsulot kasalliklarni davolash, oldini olish yoki tashxis
-            qo'yish uchun mo'ljallanmagan. Sog'liq muammolaringiz bo'lsa,
-            shifokor bilan maslahatlashishingizni tavsiya etamiz. 18 yoshdan
-            kichik, homilador va emizikli ayollar uchun tavsiya etilmaydi.
-            Shilajit tog'lardan olinadigan tabiiy mahsulot bo'lib, uning sifati
-            joy va qazib olish usullariga bog'liq.
+            qo'yish uchun mo'ljallanmagan...
           </p>
-        </div>
+        </motion.div>
 
         {/* Bottom bar */}
-        <div className="mt-8 pt-6 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-400">
+        <motion.div
+          className="mt-8 pt-6 border-t border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-400"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          viewport={{ once: true }}
+        >
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500 text-black font-bold">
+            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#e6c65a] text-black font-bold">
               SP
             </span>
             <span>© 2025 Shilajit POWER – Barcha huquqlar himoyalangan</span>
           </div>
           <nav className="flex items-center gap-6">
-            <a className="hover:text-yellow-400 transition" href="#">
+            <a className="hover:text-[#e6c65a] transition" href="#">
               Maxfiylik siyosati
             </a>
-            <a className="hover:text-yellow-400 transition" href="#">
+            <a className="hover:text-[#e6c65a] transition" href="#">
               Foydalanish shartlari
             </a>
-            <a className="hover:text-yellow-400 transition" href="#">
+            <a className="hover:text-[#e6c65a] transition" href="#">
               Qaytarish siyosati
             </a>
           </nav>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
@@ -123,16 +147,16 @@ export default function Footer() {
 
 function ContactCard({
   href,
-  icon,
   label,
   value,
-  tone = "emerald",
+  index,
+  mock,
 }: {
   href: string;
-  icon: React.ReactNode;
   label: string;
   value: string;
-  tone?: "emerald" | "sky" | "fuchsia" | "yellow";
+  index: number;
+  mock: { icon: JSX.Element; tone: string }[];
 }) {
   const toneMap: Record<string, string> = {
     emerald:
@@ -145,21 +169,27 @@ function ContactCard({
   };
 
   return (
-    <a
+    <motion.a
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
       className="group flex items-center gap-4 p-4 rounded-2xl bg-neutral-900/40 border border-neutral-800 hover:bg-neutral-900/60 transition"
+      initial={{ opacity: 0, x: 20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
     >
       <span
-        className={`grid place-items-center h-11 w-11 rounded-xl ring-1 ${toneMap[tone]}`}
+        className={`grid place-items-center h-11 w-11 rounded-xl ring-1 ${
+          toneMap[mock[index].tone]
+        }`}
       >
-        {icon}
+        {mock[index].icon}
       </span>
       <span className="flex flex-col">
         <span className="text-xs text-neutral-400">{label}</span>
         <span className="text-base text-neutral-100">{value}</span>
       </span>
-    </a>
+    </motion.a>
   );
 }

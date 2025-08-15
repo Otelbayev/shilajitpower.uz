@@ -15,7 +15,6 @@ import {
   getOrders,
   submitForm,
   updateOrderStatus,
-  validateForm,
 } from "../controllers/form.controller.js";
 import { formLimiter } from "../middleware/limit.middleware.js";
 import { verifyToken } from "../middleware/auth.middleware.js";
@@ -35,7 +34,7 @@ router.use("/whom", verifyToken, whomRoutes);
 router.use("/superior", verifyToken, superiorRoutes);
 
 router.get("/all", getAllData);
-router.post("/submit", formLimiter, validateForm, submitForm);
+router.post("/submit", formLimiter, submitForm);
 router.get("/orders", verifyToken, getOrders);
 router.put("/orders/:id/status", verifyToken, updateOrderStatus);
 

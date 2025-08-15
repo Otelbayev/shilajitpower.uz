@@ -3,9 +3,9 @@ import db from "../db.js";
 class ContactsController {
   async createContact(req, res) {
     try {
-      const { name, link } = req.body;
-      const icon = req.file ? req.file.filename : null;
-      if (!icon || !name || !link) {
+      const { name, link, icon } = req.body;
+
+      if (!name || !link) {
         return res
           .status(400)
           .json({ message: "Barcha maydonlar to‘ldirilishi shart" });
@@ -54,8 +54,7 @@ class ContactsController {
   async updateContact(req, res) {
     try {
       const { id } = req.params;
-      const { name, link } = req.body;
-      const icon = req.file ? req.file.filename : null;
+      const { name, link, icon } = req.body;
 
       // Eski ma'lumotni olish
       const [oldData] = await db.query("SELECT * FROM contacts WHERE id = ?", [

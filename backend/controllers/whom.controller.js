@@ -26,11 +26,9 @@ class WhomController {
 
   async create(req, res) {
     try {
-      const { who, problem, solution, benefits } = req.body;
+      const { who, problem, solution, benefits, icon } = req.body;
 
-      // Agar bir nechta fayl bo‘lsa
       const image = req.files?.image ? req.files.image[0].filename : null;
-      const icon = req.files?.icon ? req.files.icon[0].filename : null;
 
       const [result] = await db.query(
         "INSERT INTO whom (image, icon, who, problem, solution, benefits) VALUES (?, ?, ?, ?, ?, ?)",
@@ -47,9 +45,8 @@ class WhomController {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const { who, problem, solution, benefits } = req.body;
+      const { who, problem, solution, benefits, icon } = req.body;
       const image = req.files?.image ? req.files.image[0].filename : null;
-      const icon = req.files?.icon ? req.files.icon[0].filename : null;
 
       await db.query(
         "UPDATE whom SET image=?, icon=?, who=?, problem=?, solution=?, benefits=? WHERE id=?",

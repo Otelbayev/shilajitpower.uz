@@ -49,15 +49,13 @@ const Whom = () => {
       formData.append("who", values.who);
       formData.append("problem", values.problem);
       formData.append("solution", values.solution);
+      formData.append("icon", values.icon);
       values.benefits?.forEach((b, i) => {
         formData.append(`benefits[${i}]`, b);
       });
 
       if (fileListImage.length > 0) {
         formData.append("image", fileListImage[0].originFileObj);
-      }
-      if (fileListIcon.length > 0) {
-        formData.append("icon", fileListIcon[0].originFileObj);
       }
 
       if (editingId) {
@@ -101,6 +99,7 @@ const Whom = () => {
       problem: record.problem,
       solution: record.solution,
       benefits: record.benefits || [],
+      icon: record.icon,
     });
     setEditingId(record.id);
     setFileListImage([]);
@@ -109,6 +108,22 @@ const Whom = () => {
   };
 
   const columns = [
+    {
+      title: "Icon",
+      dataIndex: "icon",
+      align: "center",
+    },
+    { title: "Who", dataIndex: "who", align: "center" },
+    { title: "Problem", dataIndex: "problem", align: "center" },
+    { title: "Solution", dataIndex: "solution", align: "center" },
+    {
+      title: "Benefits",
+      dataIndex: "benefits",
+      align: "center",
+      render: (arr) => {
+        return arr;
+      },
+    },
     {
       title: "Image",
       dataIndex: "image",
@@ -121,31 +136,6 @@ const Whom = () => {
             style={{ width: 60, height: 60, objectFit: "cover" }}
           />
         ) : null,
-    },
-    {
-      title: "Icon",
-      dataIndex: "icon",
-      align: "center",
-      render: (ic) =>
-        ic ? (
-          <img
-            src={`${import.meta.env.VITE_IMG_API}/uploads/${ic}`}
-            alt="icon"
-            style={{ width: 40, height: 40, objectFit: "cover" }}
-          />
-        ) : null,
-    },
-    { title: "Who", dataIndex: "who", align: "center" },
-    { title: "Problem", dataIndex: "problem", align: "center" },
-    { title: "Solution", dataIndex: "solution", align: "center" },
-    {
-      title: "Benefits",
-      dataIndex: "benefits",
-      align: "center",
-      render: (arr) => {
-        const array = JSON.parse(arr);
-        return array?.length ? array.join(",") : "";
-      },
     },
     {
       title: "Actions",
@@ -273,18 +263,13 @@ const Whom = () => {
               <Button icon={<UploadOutlined />}>Select Image</Button>
             </Upload>
           </Form.Item>
-          <Form.Item label="Icon">
-            <Upload
-              beforeUpload={() => false}
-              fileList={fileListIcon}
-              onChange={({ fileList }) => setFileListIcon(fileList)}
-              accept=".png,.jpg,.jpeg,.svg"
-              maxCount={1}
-            >
-              <Button icon={<UploadOutlined />}>Select Icon</Button>
-            </Upload>
+          <Form.Item
+            name="icon"
+            label="Icon"
+            rules={[{ required: true, message: "Icon kiritilishi shart!" }]}
+          >
+            <Input />
           </Form.Item>
-
           <Button type="primary" htmlType="submit" block>
             {editingId ? "Update" : "Create"}
           </Button>

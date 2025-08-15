@@ -42,7 +42,6 @@ const Why = () => {
   }, []);
 
   const handleSubmit = async (values) => {
-    console.log(values);
     try {
       const formData = new FormData();
       formData.append("title", values.title);

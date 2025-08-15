@@ -60,7 +60,7 @@ CREATE TABLE prices (
   massa VARCHAR(100) NOT NULL,
   month VARCHAR(100) NOT NULL,
   description TEXT,
-  price DECIMAL(10,2) NOT NULL,
+  price VARCHAR(100) NOT NULL,
   old_price VARCHAR(100),
   span VARCHAR(100)
 );

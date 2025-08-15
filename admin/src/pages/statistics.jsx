@@ -25,7 +25,7 @@ const Statistics = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (values) => 
+  const handleSubmit = async (values) => {
     try {
       if (editingId) {
         await axios.put(`${API_URL}/${editingId}`, values);

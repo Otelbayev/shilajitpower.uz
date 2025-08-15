@@ -47,10 +47,7 @@ const Contacts = () => {
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("link", values.link);
-
-      if (fileListIcon.length > 0) {
-        formData.append("icon", fileListIcon[0].originFileObj);
-      }
+      formData.append("icon", values.icon);
 
       if (editingId) {
         await axios.put(`${API_URL}/${editingId}`, formData, {
@@ -92,6 +89,7 @@ const Contacts = () => {
     form.setFieldsValue({
       name: record.name,
       link: record.link,
+      icon: record.icon,
     });
     setEditingId(record.id);
     setFileListIcon([]);
@@ -100,28 +98,15 @@ const Contacts = () => {
 
   const columns = [
     {
-      title: "Icon",
+      title: "Username",
       dataIndex: "icon",
       align: "center",
-      render: (ic) =>
-        ic ? (
-          <img
-            src={`${import.meta.env.VITE_IMG_API}/uploads/${ic}`}
-            alt="icon"
-            style={{ width: 40, height: 40, objectFit: "cover" }}
-          />
-        ) : null,
     },
     { title: "Name", dataIndex: "name", align: "center" },
     {
       title: "Link",
       dataIndex: "link",
       align: "center",
-      render: (text) => (
-        <a href={text} target="_blank" rel="noreferrer">
-          {text}
-        </a>
-      ),
     },
     {
       title: "Actions",
@@ -203,16 +188,12 @@ const Contacts = () => {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Icon">
-            <Upload
-              beforeUpload={() => false}
-              fileList={fileListIcon}
-              onChange={({ fileList }) => setFileListIcon(fileList)}
-              accept=".png,.jpg,.jpeg,.svg"
-              maxCount={1}
-            >
-              <Button icon={<UploadOutlined />}>Select Icon</Button>
-            </Upload>
+          <Form.Item
+            name="icon"
+            label="Username"
+            rules={[{ required: true, message: "Username kiritilishi shart!" }]}
+          >
+            <Input />
           </Form.Item>
 
           <Button type="primary" htmlType="submit" block>

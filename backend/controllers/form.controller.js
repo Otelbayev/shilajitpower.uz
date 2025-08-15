@@ -2,18 +2,6 @@ import db from "../db.js";
 
 import { body, validationResult } from "express-validator";
 
-export const validateForm = [
-  body("name")
-    .trim()
-    .escape()
-    .isLength({ min: 2, max: 50 })
-    .withMessage("Ism 2-50 ta belgidan iborat bo‘lishi kerak"),
-  body("phone")
-    .matches(/^\+998\d{9}$/)
-    .withMessage("Telefon raqam formati: +998XXXXXXXXX"),
-  body("type").isInt().withMessage("Type faqat ID bo‘lishi kerak"),
-];
-
 export const submitForm = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

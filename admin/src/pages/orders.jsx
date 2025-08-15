@@ -6,18 +6,11 @@ import {
   Form,
   Input,
   Select,
-  Space,
   message,
   Card,
   Tag,
 } from "antd";
-import {
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  CheckOutlined,
-  CheckCircleFilled,
-} from "@ant-design/icons";
+import { CheckCircleFilled } from "@ant-design/icons";
 import axios from "../utils/axios";
 import dayjs from "dayjs";
 
@@ -59,18 +52,6 @@ const Orders = () => {
       message.error("Saqlashda xatolik");
     }
   };
-
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${API_URL}/${id}`);
-      message.success("Buyurtma o‘chirildi");
-      fetchData();
-    } catch (err) {
-      message.error("O‘chirishda xatolik");
-    }
-  };
-
-  console.log(data);
 
   const columns = [
     {
