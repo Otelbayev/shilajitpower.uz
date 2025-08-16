@@ -3,7 +3,11 @@ import db from "../db.js";
 class StatisticsController {
   async getAll(req, res) {
     try {
-      const [rows] = await db.query("SELECT * FROM statistics");
+      const lang = req.query.lang || "uz";
+      const [rows] = await db.query(
+        "SELECT * FROM statistics WHERE language_code = ?",
+        [lang]
+      );
       res.json(rows);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -12,12 +16,18 @@ class StatisticsController {
 
   async getById(req, res) {
     try {
-      const [rows] = await db.query("SELECT * FROM statistics WHERE id = ?", [
-        req.params.id,
-      ]);
+      const { id } = req.params;
+      const lang = req.query.lang || "uz";
+
+      const [rows] = await db.query(
+        "SELECT * FROM statistics WHERE id = ? AND language_code = ?",
+        [id, lang]
+      );
+
       if (rows.length === 0) {
-        return res.status(404).json({ message: "Statistika topilmadi" });
+        return res.status(404).json({ message: "Статистика не найдена" });
       }
+
       res.json(rows[0]);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -26,7 +36,7 @@ class StatisticsController {
 
   async create(req, res) {
     try {
-      const { count, description } = req.body;
+      const { count, description, language_code = "uz" } = req.body;
       if (!count || !description) {
         return res
           .status(400)
@@ -34,10 +44,12 @@ class StatisticsController {
       }
 
       const [result] = await db.query(
-        "INSERT INTO statistics (count, `description`) VALUES (?, ?)",
-        [count, description]
+        "INSERT INTO statistics (count, description, language_code) VALUES (?, ?, ?)",
+        [count, description, language_code]
       );
-      res.status(201).json({ id: result.insertId, count, description });
+      res
+        .status(201)
+        .json({ id: result.insertId, count, description, language_code });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -45,17 +57,23 @@ class StatisticsController {
 
   async update(req, res) {
     try {
-      const { count, description } = req.body;
+      const { count, description, language_code = "uz" } = req.body;
+
       const [result] = await db.query(
-        "UPDATE statistics SET count = ?, `description` = ? WHERE id = ?",
-        [count, description, req.params.id]
+        "UPDATE statistics SET count = ?, description = ?, language_code = ? WHERE id = ?",
+        [count, description, language_code, req.params.id]
       );
 
       if (result.affectedRows === 0) {
-        return res.status(404).json({ message: "Statistika topilmadi" });
+        return res.status(404).json({ message: "Статистика не найдена" });
       }
 
-      res.json({ message: "Statistika yangilandi" });
+      res.json({
+        message: "Statistika yangilandi",
+        count,
+        description,
+        language_code,
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -67,7 +85,7 @@ class StatisticsController {
         req.params.id,
       ]);
       if (result.affectedRows === 0) {
-        return res.status(404).json({ message: "Statistika topilmadi" });
+        return res.status(404).json({ message: "Статистика не найдена" });
       }
       res.json({ message: "Statistika o‘chirildi" });
     } catch (error) {

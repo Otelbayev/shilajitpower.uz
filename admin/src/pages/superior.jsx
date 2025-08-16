@@ -9,10 +9,12 @@ import {
   Space,
   Card,
   Tag,
+  Select,
 } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "../utils/axios";
 
+const { Option } = Select;
 const API_URL = "/superior";
 
 const Superior = () => {
@@ -20,46 +22,58 @@ const Superior = () => {
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
   const [editingId, setEditingId] = useState(null);
+  const [lang, setLang] = useState("uz"); // Til state
 
-  const fetchData = async () => {
+  const fetchData = async (selectedLang = lang) => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axios.get(API_URL, { params: { lang: selectedLang } });
       setData(res.data || []);
     } catch (err) {
-      message.error("Ma'lumotni olishda xatolik!");
+      message.error(
+        lang === "ru"
+          ? "Ошибка при получении данных!"
+          : "Ma'lumotni olishda xatolik!"
+      );
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [lang]);
 
   const handleSubmit = async (values) => {
     try {
-      values.fields = values.fields.split(",");
+      values.fields = values.fields.split(",").map((f) => f.trim());
+      values.language_code = lang;
+
       if (editingId) {
         await axios.put(`${API_URL}/${editingId}`, values);
-        message.success("Yangilandi!");
+        message.success(lang === "ru" ? "Обновлено!" : "Yangilandi!");
       } else {
         await axios.post(API_URL, values);
-        message.success("Yaratildi!");
+        message.success(lang === "ru" ? "Создано!" : "Yaratildi!");
       }
-      fetchData();
+
+      fetchData(lang);
       setOpen(false);
       form.resetFields();
       setEditingId(null);
     } catch {
-      message.error("Saqlashda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при сохранении!" : "Saqlashda xatolik!"
+      );
     }
   };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
-      message.success("O‘chirildi!");
-      fetchData();
+      message.success(lang === "ru" ? "Удалено!" : "O‘chirildi!");
+      fetchData(lang);
     } catch {
-      message.error("O‘chirishda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при удалении!" : "O‘chirishda xatolik!"
+      );
     }
   };
 
@@ -76,21 +90,35 @@ const Superior = () => {
   };
 
   const columns = [
-    { title: "Title", dataIndex: "title", align: "center" },
-    { title: "Min Title", dataIndex: "minTitle", align: "center" },
-    { title: "Sub Title", dataIndex: "subTitle", align: "center" },
-    { title: "Description", dataIndex: "description", align: "center" },
     {
-      title: "Fields",
-      dataIndex: "fields",
+      title: lang === "ru" ? "Название" : "Title",
+      dataIndex: "title",
       align: "center",
-      render: (fields) => {
-        const data = JSON.parse(fields);
-        return data?.length ? data.map((f, i) => <Tag key={i}>{f}</Tag>) : null;
-      },
     },
     {
-      title: "Actions",
+      title: lang === "ru" ? "Мини заголовок" : "Min Title",
+      dataIndex: "minTitle",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Подзаголовок" : "Sub Title",
+      dataIndex: "subTitle",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Описание" : "Description",
+      dataIndex: "description",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Поля" : "Fields",
+      dataIndex: "fields",
+      align: "center",
+      render: (fields) =>
+        fields?.length ? fields.map((f, i) => <Tag key={i}>{f}</Tag>) : null,
+    },
+    {
+      title: lang === "ru" ? "Действия" : "Actions",
       align: "center",
       render: (_, record) => (
         <Space>
@@ -99,7 +127,7 @@ const Superior = () => {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
-            Edit
+            {lang === "ru" ? "Редактировать" : "Edit"}
           </Button>
           <Button
             size="small"
@@ -107,7 +135,7 @@ const Superior = () => {
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id)}
           >
-            Delete
+            {lang === "ru" ? "Удалить" : "Delete"}
           </Button>
         </Space>
       ),
@@ -117,21 +145,30 @@ const Superior = () => {
   return (
     <div>
       <Card
-        title={<h2 className="text-xl font-bold">Superior CRUD</h2>}
+        title={
+          <h2 className="text-xl font-bold">
+            {lang === "ru" ? "Superior CRUD" : "Superior CRUD"}
+          </h2>
+        }
         extra={
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => {
-              form.resetFields();
-              setEditingId(null);
-              setOpen(true);
-            }}
-          >
-            Add New
-          </Button>
+          <Select value={lang} onChange={setLang} style={{ width: 120 }}>
+            <Option value="uz">Uz</Option>
+            <Option value="ru">RU</Option>
+          </Select>
         }
       >
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => {
+            form.resetFields();
+            setEditingId(null);
+            setOpen(true);
+          }}
+        >
+          {lang === "ru" ? "Добавить" : "Add New"}
+        </Button>
+
         <Table
           size="small"
           bordered
@@ -143,45 +180,81 @@ const Superior = () => {
       </Card>
 
       <Modal
-        title={editingId ? "Edit Superior" : "Add Superior"}
+        title={
+          editingId
+            ? lang === "ru"
+              ? "Редактировать Superior"
+              : "Edit Superior"
+            : lang === "ru"
+            ? "Добавить Superior"
+            : "Add Superior"
+        }
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+          <Form.Item
+            name="title"
+            label={lang === "ru" ? "Название" : "Title"}
+            rules={[
+              {
+                required: true,
+                message:
+                  lang === "ru"
+                    ? "Название обязательно!"
+                    : "Title kiritilishi shart!",
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
             name="minTitle"
-            label="Min Title"
+            label={lang === "ru" ? "Мини заголовок" : "Min Title"}
             rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="subTitle"
-            label="Sub Title"
+            label={lang === "ru" ? "Подзаголовок" : "Sub Title"}
             rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="description"
-            label="Description"
+            label={lang === "ru" ? "Описание" : "Description"}
             rules={[{ required: true }]}
           >
             <Input.TextArea rows={3} />
           </Form.Item>
           <Form.Item
             name="fields"
-            label="Fields (comma separated)"
+            label={
+              lang === "ru"
+                ? "Поля (через запятую)"
+                : "Fields (comma separated)"
+            }
             rules={[{ required: true }]}
           >
-            <Input placeholder="Example: Field1, Field2, Field3" />
+            <Input
+              placeholder={
+                lang === "ru"
+                  ? "Пример: Поле1, Поле2, Поле3"
+                  : "Example: Field1, Field2, Field3"
+              }
+            />
           </Form.Item>
           <Button type="primary" htmlType="submit" block>
-            {editingId ? "Update" : "Create"}
+            {editingId
+              ? lang === "ru"
+                ? "Обновить"
+                : "Update"
+              : lang === "ru"
+              ? "Создать"
+              : "Create"}
           </Button>
         </Form>
       </Modal>

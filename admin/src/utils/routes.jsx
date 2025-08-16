@@ -14,6 +14,7 @@ const Questions = lazy(() => import("../pages/questions"));
 const Contacts = lazy(() => import("../pages/contacts"));
 const Orders = lazy(() => import("../pages/orders"));
 const Superior = lazy(() => import("../pages/superior"));
+const Images = lazy(() => import("../pages/images.jsx"));
 
 export const page = [
   {
@@ -76,5 +77,9 @@ export const adminPage = [
   {
     path: "/orders",
     element: <Orders />,
+  },
+  {
+    path: "/images",
+    element: <Images />,
   },
 ];

@@ -9,6 +9,7 @@ import {
   Space,
   Card,
   Upload,
+  Select,
 } from "antd";
 import {
   PlusOutlined,
@@ -18,6 +19,7 @@ import {
 } from "@ant-design/icons";
 import axios from "../utils/axios";
 
+const { Option } = Select;
 const API_URL = "/certificates";
 
 const Certificates = () => {
@@ -26,20 +28,24 @@ const Certificates = () => {
   const [form] = Form.useForm();
   const [editingId, setEditingId] = useState(null);
   const [fileList, setFileList] = useState([]);
+  const [lang, setLang] = useState("uz"); // Til state
 
-  const fetchData = async () => {
+  const fetchData = async (selectedLang = lang) => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axios.get(API_URL, { params: { lang: selectedLang } });
       setData(res.data || []);
     } catch (err) {
-      console.error(err);
-      message.error("Ma'lumotni olishda xatolik!");
+      message.error(
+        lang === "ru"
+          ? "Ошибка при получении данных!"
+          : "Ma'lumotni olishda xatolik!"
+      );
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [lang]);
 
   const handleSubmit = async (values) => {
     try {
@@ -47,6 +53,8 @@ const Certificates = () => {
       formData.append("title", values.title);
       formData.append("subtitle", values.subtitle);
       formData.append("description", values.description);
+      formData.append("language_code", lang);
+
       if (fileList.length > 0) {
         formData.append("image", fileList[0].originFileObj);
       }
@@ -55,30 +63,33 @@ const Certificates = () => {
         await axios.put(`${API_URL}/${editingId}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        message.success("Yangilandi!");
+        message.success(lang === "ru" ? "Обновлено!" : "Yangilandi!");
       } else {
         await axios.post(API_URL, formData);
-        message.success("Yaratildi!");
+        message.success(lang === "ru" ? "Создано!" : "Yaratildi!");
       }
-      fetchData();
+
+      fetchData(lang);
       setOpen(false);
       form.resetFields();
       setFileList([]);
       setEditingId(null);
     } catch (err) {
-      console.error(err);
-      message.error("Saqlashda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при сохранении!" : "Saqlashda xatolik!"
+      );
     }
   };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
-      message.success("O‘chirildi!");
-      fetchData();
+      message.success(lang === "ru" ? "Удалено!" : "O‘chirildi!");
+      fetchData(lang);
     } catch (err) {
-      console.error(err);
-      message.error("O‘chirishda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при удалении!" : "O‘chirishda xatolik!"
+      );
     }
   };
 
@@ -94,11 +105,23 @@ const Certificates = () => {
   };
 
   const columns = [
-    { title: "Title", dataIndex: "title", align: "center" },
-    { title: "Subtitle", dataIndex: "subtitle", align: "center" },
-    { title: "Description", dataIndex: "description", align: "center" },
     {
-      title: "Image",
+      title: lang === "ru" ? "Название" : "Title",
+      dataIndex: "title",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Подзаголовок" : "Subtitle",
+      dataIndex: "subtitle",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Описание" : "Description",
+      dataIndex: "description",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Изображение" : "Image",
       dataIndex: "image",
       align: "center",
       render: (img) =>
@@ -111,7 +134,7 @@ const Certificates = () => {
         ) : null,
     },
     {
-      title: "Actions",
+      title: lang === "ru" ? "Действия" : "Actions",
       align: "center",
       width: 20,
       render: (_, record) => (
@@ -121,7 +144,7 @@ const Certificates = () => {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
-            Edit
+            {lang === "ru" ? "Редактировать" : "Edit"}
           </Button>
           <Button
             size="small"
@@ -129,7 +152,7 @@ const Certificates = () => {
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id)}
           >
-            Delete
+            {lang === "ru" ? "Удалить" : "Delete"}
           </Button>
         </Space>
       ),
@@ -139,22 +162,31 @@ const Certificates = () => {
   return (
     <div>
       <Card
-        title={<h2 className="text-xl font-bold">Certificates CRUD</h2>}
+        title={
+          <h2 className="text-xl font-bold">
+            {lang === "ru" ? "Certificates CRUD" : "Certificates CRUD"}
+          </h2>
+        }
         extra={
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => {
-              form.resetFields();
-              setFileList([]);
-              setEditingId(null);
-              setOpen(true);
-            }}
-          >
-            Add New
-          </Button>
+          <Select value={lang} onChange={setLang} style={{ width: 120 }}>
+            <Option value="uz">Uz</Option>
+            <Option value="ru">RU</Option>
+          </Select>
         }
       >
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => {
+            form.resetFields();
+            setFileList([]);
+            setEditingId(null);
+            setOpen(true);
+          }}
+        >
+          {lang === "ru" ? "Добавить" : "Add New"}
+        </Button>
+
         <Table
           size="small"
           bordered
@@ -168,30 +200,53 @@ const Certificates = () => {
       </Card>
 
       <Modal
-        title={editingId ? "Edit Certificate" : "Add Certificate"}
+        title={
+          editingId
+            ? lang === "ru"
+              ? "Редактировать сертификат"
+              : "Edit Certificate"
+            : lang === "ru"
+            ? "Добавить сертификат"
+            : "Add Certificate"
+        }
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+          <Form.Item
+            name="title"
+            label={lang === "ru" ? "Название" : "Title"}
+            rules={[
+              {
+                required: true,
+                message:
+                  lang === "ru"
+                    ? "Название обязательно!"
+                    : "Title kiritilishi shart!",
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
             name="subtitle"
-            label="Subtitle"
+            label={lang === "ru" ? "Подзаголовок" : "Subtitle"}
             rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="description"
-            label="Description"
+            label={lang === "ru" ? "Описание" : "Description"}
             rules={[{ required: true }]}
           >
             <Input.TextArea rows={3} />
           </Form.Item>
-          <Form.Item label="Image" rules={[{ required: true }]}>
+          <Form.Item
+            label={lang === "ru" ? "Изображение" : "Image"}
+            rules={[{ required: true }]}
+          >
             <Upload
               beforeUpload={() => false}
               fileList={fileList}
@@ -199,12 +254,20 @@ const Certificates = () => {
               accept=".png,.jpg,.jpeg"
               maxCount={1}
             >
-              <Button icon={<UploadOutlined />}>Select Image</Button>
+              <Button icon={<UploadOutlined />}>
+                {lang === "ru" ? "Выбрать изображение" : "Select Image"}
+              </Button>
             </Upload>
           </Form.Item>
 
           <Button type="primary" htmlType="submit" block>
-            {editingId ? "Update" : "Create"}
+            {editingId
+              ? lang === "ru"
+                ? "Обновить"
+                : "Update"
+              : lang === "ru"
+              ? "Создать"
+              : "Create"}
           </Button>
         </Form>
       </Modal>

@@ -5,24 +5,19 @@ import {
   Modal,
   Form,
   Input,
+  Upload,
   message,
   Space,
   Card,
-  Upload,
   Select,
 } from "antd";
-import {
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "../utils/axios";
 
 const { Option } = Select;
-const API_URL = "/why";
+const API_URL = "/images";
 
-const Why = () => {
+const Images = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
@@ -30,16 +25,19 @@ const Why = () => {
   const [fileList, setFileList] = useState([]);
   const [lang, setLang] = useState("uz"); // Til state
 
+  // --- Fetch Data ---
   const fetchData = async (selectedLang = lang) => {
     try {
-      const res = await axios.get(API_URL, { params: { lang: selectedLang } });
+      const res = await axios.get(API_URL, {
+        params: { lang: selectedLang }, // Tilni backendga yuboramiz
+      });
       setData(res.data || []);
     } catch (err) {
       console.error(err);
       message.error(
         lang === "ru"
           ? "Ошибка при получении данных!"
-          : "Ma'lumotni olishda xatolik!"
+          : "Ma'lumotlarni olishda xatolik!"
       );
     }
   };
@@ -48,6 +46,7 @@ const Why = () => {
     fetchData();
   }, [lang]);
 
+  // --- Submit (Create / Update) ---
   const handleSubmit = async (values) => {
     try {
       const formData = new FormData();
@@ -55,9 +54,13 @@ const Why = () => {
       formData.append("description", values.description);
       formData.append("language_code", lang); // Backendga tilni yuboramiz
 
-      if (fileList.length > 0) {
-        formData.append("icon", fileList[0].originFileObj);
-      }
+      fileList.forEach((file) => {
+        if (file.originFileObj) {
+          formData.append("images", file.originFileObj);
+        } else if (file.url) {
+          formData.append("existingImages", file.url.split("/").pop());
+        }
+      });
 
       if (editingId) {
         await axios.put(`${API_URL}/${editingId}`, formData, {
@@ -65,7 +68,9 @@ const Why = () => {
         });
         message.success(lang === "ru" ? "Обновлено!" : "Yangilandi!");
       } else {
-        await axios.post(API_URL, formData);
+        await axios.post(API_URL, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         message.success(lang === "ru" ? "Создано!" : "Yaratildi!");
       }
 
@@ -100,25 +105,34 @@ const Why = () => {
       title: record.title,
       description: record.description,
     });
+
+    let images = [];
+    if (record.images?.length) {
+      try {
+        images = JSON.parse(record.images);
+        if (!Array.isArray(images)) images = [];
+      } catch (error) {
+        console.error("JSON parse error for images:", error, record.images);
+        // fallback: record.images ni string array sifatida qabul qilish
+        images = [record.images].flat();
+      }
+    }
+
+    setFileList(
+      images.map((img, index) => ({
+        uid: String(index),
+        name: img,
+        status: "done",
+        url: `${import.meta.env.VITE_IMG_API}/uploads/${img}`,
+      }))
+    );
+
     setEditingId(record.id);
-    setFileList([]);
     setOpen(true);
   };
 
+  // --- Columns ---
   const columns = [
-    {
-      title: lang === "ru" ? "Иконка" : "Icon",
-      dataIndex: "icon",
-      align: "center",
-      render: (icon) =>
-        icon ? (
-          <img
-            src={`${import.meta.env.VITE_IMG_API}/uploads/${icon}`}
-            alt="icon"
-            style={{ width: 40, height: 40, objectFit: "cover" }}
-          />
-        ) : null,
-    },
     {
       title: lang === "ru" ? "Название" : "Title",
       dataIndex: "title",
@@ -128,11 +142,40 @@ const Why = () => {
       title: lang === "ru" ? "Описание" : "Description",
       dataIndex: "description",
       align: "center",
+      width: 500,
+    },
+    {
+      title: lang === "ru" ? "Изображения" : "Images",
+      dataIndex: "images",
+      align: "center",
+      render: (imgs) => {
+        console.log("Raw imgs:", imgs);
+        let images = [];
+        try {
+          images = imgs?.length ? JSON.parse(imgs) : [];
+        } catch (error) {
+          console.error("JSON parse error:", error);
+
+          if (Array.isArray(imgs)) images = imgs;
+        }
+
+        return (
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+            {images.map((img, i) => (
+              <img
+                key={i}
+                src={`${import.meta.env.VITE_IMG_API}/uploads/${img}`}
+                alt="img"
+                style={{ width: 50, height: 50, objectFit: "cover" }}
+              />
+            ))}
+          </div>
+        );
+      },
     },
     {
       title: lang === "ru" ? "Действия" : "Actions",
       align: "center",
-      width: 50,
       render: (_, record) => (
         <Space>
           <Button
@@ -142,12 +185,7 @@ const Why = () => {
           >
             {lang === "ru" ? "Редактировать" : "Edit"}
           </Button>
-          <Button
-            size="small"
-            danger
-            icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record.id)}
-          >
+          <Button size="small" danger onClick={() => handleDelete(record.id)}>
             {lang === "ru" ? "Удалить" : "Delete"}
           </Button>
         </Space>
@@ -160,7 +198,7 @@ const Why = () => {
       <Card
         title={
           <h2 className="text-xl font-bold">
-            {lang === "ru" ? "Почему мы CRUD" : "Why Us CRUD"}
+            {lang === "ru" ? "Изображения CRUD" : "Images CRUD"}
           </h2>
         }
         extra={
@@ -194,19 +232,21 @@ const Why = () => {
           scroll={{ x: "max-content" }}
         />
       </Card>
+
       <Modal
         title={
           editingId
             ? lang === "ru"
-              ? "Редактировать Why"
-              : "Edit Why"
+              ? "Редактировать изображение"
+              : "Edit Image"
             : lang === "ru"
-            ? "Добавить Why"
-            : "Add Why"
+            ? "Добавить изображение"
+            : "Add Image"
         }
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
+        width={600}
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Form.Item
@@ -239,28 +279,24 @@ const Why = () => {
           >
             <Input.TextArea rows={3} />
           </Form.Item>
+
           <Form.Item
-            label={lang === "ru" ? "Иконка" : "Icon"}
-            rules={[
-              {
-                required: !editingId,
-                message:
-                  lang === "ru"
-                    ? "Иконка обязательна!"
-                    : "Icon kiritilishi shart!",
-              },
-            ]}
+            label={lang === "ru" ? "Загрузить изображения" : "Upload Images"}
           >
             <Upload
+              listType="picture-card"
               beforeUpload={() => false}
               fileList={fileList}
               onChange={({ fileList }) => setFileList(fileList)}
-              accept=".png,.jpg,.jpeg,.svg"
-              maxCount={1}
+              multiple
+              accept=".png,.jpg,.jpeg,.webp"
             >
-              <Button icon={<UploadOutlined />}>
-                {lang === "ru" ? "Выбрать иконку" : "Select Icon"}
-              </Button>
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>
+                  {lang === "ru" ? "Загрузить" : "Upload"}
+                </div>
+              </div>
             </Upload>
           </Form.Item>
 
@@ -279,4 +315,4 @@ const Why = () => {
   );
 };
 
-export default Why;
+export default Images;

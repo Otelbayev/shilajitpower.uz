@@ -5,7 +5,7 @@ import upload from "../middleware/upload.middleware.js";
 const router = Router();
 
 router.get("/", whomController.getAll);
-router.get("/:id", whomController.getOne);
+router.get("/:id", whomController.getById);
 router.post(
   "/",
 

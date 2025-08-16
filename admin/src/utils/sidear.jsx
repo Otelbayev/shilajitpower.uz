@@ -10,18 +10,24 @@ import {
   Contact2,
   ListOrdered,
   Backpack,
+  Images,
 } from "lucide-react";
 
 export const sidebar = [
   {
     key: "orders",
     label: "Orders",
-    icon: <ListOrdered />,
+    icon: <ListOrdered size={25} />,
   },
   {
     key: "hero",
     label: "Hero",
     icon: <Package size={25} />,
+  },
+  {
+    key: "images",
+    label: "Images",
+    icon: <Images size={25} />,
   },
   {
     key: "why",
@@ -31,7 +37,7 @@ export const sidebar = [
   {
     key: "/superior",
     label: "Superior",
-    icon: <Backpack />,
+    icon: <Backpack size={25} />,
   },
   {
     key: "certificates",

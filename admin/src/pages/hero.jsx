@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
-import { Form, Input, Button, Card, message, InputNumber } from "antd";
+import { Form, Input, Button, Card, message, InputNumber, Select } from "antd";
 import axios from "../utils/axios";
+
+const { Option } = Select;
 
 export default function Hero() {
   const [form] = Form.useForm();
   const [heroData, setHeroData] = useState(null);
+  const [lang, setLang] = useState("uz"); // Tilni tanlash uchun state
 
-  const fetchHero = async () => {
+  const fetchHero = async (selectedLang = lang) => {
     try {
-      const { data } = await axios.get("/hero");
+      const { data } = await axios.get("/hero", {
+        params: { lang: selectedLang },
+      });
       if (data) {
         setHeroData(data);
         form.setFieldsValue(data);
@@ -16,25 +21,24 @@ export default function Hero() {
     } catch (err) {
       console.error(err);
       message.error("Ma'lumotni olishda xatolik!");
+      setHeroData(null);
+      form.resetFields();
     }
   };
 
   useEffect(() => {
     fetchHero();
-  }, []);
+  }, [lang]); // Til o'zgarganda ma'lumotni qayta yuklaymiz
 
   const onFinish = async (values) => {
     try {
-      if (!heroData || !heroData.id) {
-        // Create
-        await axios.post("/hero", values);
-        message.success("Yaratildi!");
-      } else {
-        // Update
-        await axios.post("/hero", values);
-        message.success("Yangilandi!");
-      }
-      fetchHero();
+      // Tilni bodyga qo'shamiz
+      const payload = { ...values, language_code: lang };
+
+      await axios.post("/hero", payload);
+
+      message.success(heroData ? "Yangilandi!" : "Yaratildi!");
+      fetchHero(lang); // Ma'lumotni yangilaymiz
     } catch (err) {
       console.error(err);
       message.error("Saqlashda xatolik!");
@@ -44,6 +48,13 @@ export default function Hero() {
   return (
     <Card title="Hero Section CRUD">
       <Form form={form} layout="vertical" onFinish={onFinish}>
+        <Form.Item label="Til">
+          <Select value={lang} onChange={(value) => setLang(value)}>
+            <Option value="uz">Uzbek</Option>
+            <Option value="ru">Русский</Option>
+          </Select>
+        </Form.Item>
+
         <Form.Item rules={[{ required: true }]} label="Title" name="title">
           <Input />
         </Form.Item>
@@ -90,7 +101,7 @@ export default function Hero() {
 
         <div className="flex gap-3">
           <Button type="primary" htmlType="submit">
-            {heroData ? "Yangilash" : "Yaratish"}
+            {heroData ? "Yangilash / Обновить" : "Yaratish / Создать"}
           </Button>
         </div>
       </Form>

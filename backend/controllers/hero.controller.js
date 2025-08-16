@@ -3,7 +3,11 @@ import db from "../db.js";
 class HeroController {
   async get(req, res) {
     try {
-      const [rows] = await db.query("SELECT * FROM hero_section LIMIT 1");
+      const lang = req.query.lang || "uz"; // Til parametri
+      const [rows] = await db.query(
+        "SELECT * FROM hero_section WHERE language_code = ? LIMIT 1",
+        [lang]
+      );
       if (rows.length === 0) {
         return res.status(404).json({ message: "Hero section topilmadi" });
       }
@@ -12,6 +16,7 @@ class HeroController {
       res.status(500).json({ error: err.message });
     }
   }
+
   async save(req, res) {
     try {
       const {
@@ -24,15 +29,19 @@ class HeroController {
         weight,
         product_name,
         badge,
+        language_code = "uz",
       } = req.body;
 
-      const [rows] = await db.query("SELECT id FROM hero_section LIMIT 1");
+      const [rows] = await db.query(
+        "SELECT id FROM hero_section WHERE language_code = ? LIMIT 1",
+        [language_code]
+      );
 
       if (rows.length === 0) {
         const sql = `
           INSERT INTO hero_section 
-          (title, subtitle, description, rating, reviews, microelements, weight, product_name, badge)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (title, subtitle, description, rating, reviews, microelements, weight, product_name, badge, language_code)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         await db.query(sql, [
           title,
@@ -44,6 +53,7 @@ class HeroController {
           weight,
           product_name,
           badge,
+          language_code,
         ]);
         res.json({ message: "Hero section yaratildi" });
       } else {

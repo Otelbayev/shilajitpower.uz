@@ -9,6 +9,7 @@ import contactsRoutes from "./contacts.routes.js";
 import certificatesRoutes from "./certificates.routes.js";
 import pricesRoutes from "./prices.routes.js";
 import whomRoutes from "./whom.routes.js";
+import ImagesRoutes from "./images.routes.js";
 import superiorRoutes from "./superior.route.js";
 import { getAllData } from "../controllers/all.controller.js";
 import {
@@ -32,6 +33,7 @@ router.use("/certificates", verifyToken, certificatesRoutes);
 router.use("/prices", verifyToken, pricesRoutes);
 router.use("/whom", verifyToken, whomRoutes);
 router.use("/superior", verifyToken, superiorRoutes);
+router.use("/images", verifyToken, ImagesRoutes);
 
 router.get("/all", getAllData);
 router.post("/submit", formLimiter, submitForm);

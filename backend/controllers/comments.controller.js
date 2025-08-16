@@ -1,21 +1,29 @@
 import db from "../db.js";
 
 class CommentsController {
+  // Hammasini til bo‘yicha olish
   async getAll(req, res) {
     try {
-      const [rows] = await db.query("SELECT * FROM comments");
+      const lang = req.query.lang || "uz";
+      const [rows] = await db.query(
+        "SELECT * FROM comments WHERE language_code = ?",
+        [lang]
+      );
       res.json(rows);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
   }
 
+  // Id bo‘yicha tilga mos olish
   async getOne(req, res) {
     try {
       const { id } = req.params;
-      const [rows] = await db.query("SELECT * FROM comments WHERE id = ?", [
-        id,
-      ]);
+      const lang = req.query.lang || "uz";
+      const [rows] = await db.query(
+        "SELECT * FROM comments WHERE id = ? AND language_code = ?",
+        [id, lang]
+      );
       if (rows.length === 0) {
         return res.status(404).json({ message: "Comment topilmadi" });
       }
@@ -25,13 +33,14 @@ class CommentsController {
     }
   }
 
+  // Yangi comment yaratish
   async create(req, res) {
     try {
-      const { fullname, job, comment } = req.body;
+      const { fullname, job, comment, language_code } = req.body;
       const image = req.file ? req.file.filename : null;
       const [result] = await db.query(
-        "INSERT INTO comments (fullname, job, comment, image) VALUES (?, ?, ?, ?)",
-        [fullname, job, comment, image]
+        "INSERT INTO comments (fullname, job, comment, image, language_code) VALUES (?, ?, ?, ?, ?)",
+        [fullname, job, comment, image, language_code || "uz"]
       );
       res
         .status(201)
@@ -41,14 +50,15 @@ class CommentsController {
     }
   }
 
+  // Comment update qilish
   async update(req, res) {
     try {
       const { id } = req.params;
-      const { fullname, job, comment } = req.body;
+      const { fullname, job, comment, language_code } = req.body;
       const image = req.file ? req.file.filename : null;
       const [result] = await db.query(
-        "UPDATE comments SET fullname=?, job=?, comment=?, image=? WHERE id=?",
-        [fullname, job, comment, image, id]
+        "UPDATE comments SET fullname=?, job=?, comment=?, image=?, language_code=? WHERE id=?",
+        [fullname, job, comment, image, language_code || "uz", id]
       );
       if (result.affectedRows === 0) {
         return res.status(404).json({ message: "Comment topilmadi" });
@@ -59,6 +69,7 @@ class CommentsController {
     }
   }
 
+  // Comment o‘chirish
   async delete(req, res) {
     try {
       const { id } = req.params;

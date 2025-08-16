@@ -5,19 +5,15 @@ import {
   Modal,
   Form,
   Input,
-  Upload,
   message,
   Space,
   Card,
+  Select,
 } from "antd";
-import {
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "../utils/axios";
 
+const { Option } = Select;
 const API_URL = "/contacts";
 
 const Contacts = () => {
@@ -25,66 +21,68 @@ const Contacts = () => {
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
   const [editingId, setEditingId] = useState(null);
-  const [fileListIcon, setFileListIcon] = useState([]);
+  const [lang, setLang] = useState("uz"); // uz yoki ru
 
-  const fetchData = async () => {
+  const fetchData = async (selectedLang = lang) => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axios.get(API_URL, {
+        params: { lang: selectedLang },
+      });
       setData(res.data || []);
     } catch (err) {
-      console.error(err);
-      message.error("Ma'lumotni olishda xatolik!");
+      message.error(
+        lang === "ru"
+          ? "Ошибка при получении данных!"
+          : "Ma'lumotni olishda xatolik!"
+      );
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(lang);
+  }, [lang]);
 
-  // Yaratish / Tahrirlash
   const handleSubmit = async (values) => {
     try {
-      const formData = new FormData();
-      formData.append("name", values.name);
-      formData.append("link", values.link);
-      formData.append("icon", values.icon);
+      const payload = { ...values, language_code: lang };
 
       if (editingId) {
-        await axios.put(`${API_URL}/${editingId}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        message.success("Kontakt yangilandi!");
+        await axios.put(`${API_URL}/${editingId}`, payload);
+        message.success(
+          lang === "ru" ? "Контакт обновлен!" : "Kontakt yangilandi!"
+        );
       } else {
-        await axios.post(API_URL, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        message.success("Kontakt qo‘shildi!");
+        await axios.post(API_URL, payload);
+        message.success(
+          lang === "ru" ? "Контакт добавлен!" : "Kontakt qo‘shildi!"
+        );
       }
 
-      fetchData();
+      fetchData(lang);
       setOpen(false);
       form.resetFields();
-      setFileListIcon([]);
       setEditingId(null);
     } catch (err) {
-      console.error(err);
-      message.error("Saqlashda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при сохранении!" : "Saqlashda xatolik!"
+      );
     }
   };
 
-  // O‘chirish
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
-      message.success("Kontakt o‘chirildi!");
-      fetchData();
+      message.success(
+        lang === "ru" ? "Контакт удален!" : "Kontakt o‘chirildi!"
+      );
+      fetchData(lang);
     } catch (err) {
-      console.error(err);
-      message.error("O‘chirishda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при удалении!" : "O‘chirishda xatolik!"
+      );
     }
   };
 
-  // Tahrirlashni boshlash
   const handleEdit = (record) => {
     form.setFieldsValue({
       name: record.name,
@@ -92,24 +90,27 @@ const Contacts = () => {
       icon: record.icon,
     });
     setEditingId(record.id);
-    setFileListIcon([]);
     setOpen(true);
   };
 
   const columns = [
     {
-      title: "Username",
+      title: lang === "ru" ? "Иконка" : "Username",
       dataIndex: "icon",
       align: "center",
     },
-    { title: "Name", dataIndex: "name", align: "center" },
     {
-      title: "Link",
+      title: lang === "ru" ? "Имя" : "Name",
+      dataIndex: "name",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Ссылка" : "Link",
       dataIndex: "link",
       align: "center",
     },
     {
-      title: "Actions",
+      title: lang === "ru" ? "Действия" : "Actions",
       align: "center",
       width: 50,
       render: (_, record) => (
@@ -119,7 +120,7 @@ const Contacts = () => {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
-            Edit
+            {lang === "ru" ? "Редактировать" : "Edit"}
           </Button>
           <Button
             size="small"
@@ -127,7 +128,7 @@ const Contacts = () => {
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id)}
           >
-            Delete
+            {lang === "ru" ? "Удалить" : "Delete"}
           </Button>
         </Space>
       ),
@@ -137,22 +138,36 @@ const Contacts = () => {
   return (
     <div>
       <Card
-        title={<h2 className="text-xl font-bold">Contacts CRUD</h2>}
+        title={
+          <h2 className="text-xl font-bold">
+            {lang === "ru" ? "Контакты CRUD" : "Contacts CRUD"}
+          </h2>
+        }
         extra={
+          <Select
+            value={lang}
+            onChange={setLang}
+            style={{ width: 120, marginRight: 10 }}
+          >
+            <Option value="uz">UZ</Option>
+            <Option value="ru">RU</Option>
+          </Select>
+        }
+      >
+        {data.length <= 3 && (
           <Button
             type="primary"
             icon={<PlusOutlined />}
             onClick={() => {
               form.resetFields();
-              setFileListIcon([]);
               setEditingId(null);
               setOpen(true);
             }}
           >
-            Add New
+            {lang === "ru" ? "Добавить" : "Add New"}
           </Button>
-        }
-      >
+        )}
+
         <Table
           size="small"
           bordered
@@ -166,7 +181,15 @@ const Contacts = () => {
       </Card>
 
       <Modal
-        title={editingId ? "Edit Contact" : "Add Contact"}
+        title={
+          editingId
+            ? lang === "ru"
+              ? "Редактировать контакт"
+              : "Edit Contact"
+            : lang === "ru"
+            ? "Добавить контакт"
+            : "Add Contact"
+        }
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
@@ -175,29 +198,42 @@ const Contacts = () => {
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Form.Item
             name="name"
-            label="Name"
-            rules={[{ required: true, message: "Name kiritilishi shart!" }]}
+            label={lang === "ru" ? "Имя" : "Name"}
+            rules={[
+              {
+                required: true,
+                message:
+                  lang === "ru" ? "Введите имя!" : "Name kiritilishi shart!",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="link"
-            label="Link"
-            rules={[{ required: true, message: "Link kiritilishi shart!" }]}
+            label={lang === "ru" ? "Ссылка" : "Link"}
+            rules={[
+              {
+                required: true,
+                message:
+                  lang === "ru" ? "Введите ссылку!" : "Link kiritilishi shart!",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
-
-          <Form.Item
-            name="icon"
-            label="Username"
-            rules={[{ required: true, message: "Username kiritilishi shart!" }]}
-          >
+          <Form.Item name="icon" label={lang === "ru" ? "Иконка" : "Username"}>
             <Input />
           </Form.Item>
 
           <Button type="primary" htmlType="submit" block>
-            {editingId ? "Update" : "Create"}
+            {editingId
+              ? lang === "ru"
+                ? "Обновить"
+                : "Update"
+              : lang === "ru"
+              ? "Создать"
+              : "Create"}
           </Button>
         </Form>
       </Modal>

@@ -9,6 +9,7 @@ import {
   message,
   Space,
   Card,
+  Select,
 } from "antd";
 import {
   PlusOutlined,
@@ -18,6 +19,7 @@ import {
 } from "@ant-design/icons";
 import axios from "../utils/axios";
 
+const { Option } = Select;
 const API_URL = "/comments";
 
 const Comments = () => {
@@ -26,20 +28,24 @@ const Comments = () => {
   const [form] = Form.useForm();
   const [editingId, setEditingId] = useState(null);
   const [fileListImage, setFileListImage] = useState([]);
+  const [lang, setLang] = useState("uz"); // 'uz' yoki 'ru'
 
-  const fetchData = async () => {
+  const fetchData = async (selectedLang = lang) => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axios.get(API_URL, { params: { lang: selectedLang } });
       setData(res.data || []);
     } catch (err) {
-      console.error(err);
-      message.error("Ma'lumotni olishda xatolik!");
+      message.error(
+        lang === "ru"
+          ? "Ошибка при получении данных!"
+          : "Ma'lumotni olishda xatolik!"
+      );
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(lang);
+  }, [lang]);
 
   const handleSubmit = async (values) => {
     try {
@@ -47,6 +53,7 @@ const Comments = () => {
       formData.append("fullname", values.fullname);
       formData.append("job", values.job);
       formData.append("comment", values.comment);
+      formData.append("language_code", lang);
 
       if (fileListImage.length > 0) {
         formData.append("image", fileListImage[0].originFileObj);
@@ -56,33 +63,35 @@ const Comments = () => {
         await axios.put(`${API_URL}/${editingId}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        message.success("Yangilandi!");
+        message.success(lang === "ru" ? "Обновлено!" : "Yangilandi!");
       } else {
         await axios.post(API_URL, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        message.success("Yaratildi!");
+        message.success(lang === "ru" ? "Создано!" : "Yaratildi!");
       }
 
-      fetchData();
+      fetchData(lang);
       setOpen(false);
       form.resetFields();
       setFileListImage([]);
       setEditingId(null);
     } catch (err) {
-      console.error(err);
-      message.error("Saqlashda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при сохранении!" : "Saqlashda xatolik!"
+      );
     }
   };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
-      message.success("O‘chirildi!");
-      fetchData();
+      message.success(lang === "ru" ? "Удалено!" : "O‘chirildi!");
+      fetchData(lang);
     } catch (err) {
-      console.error(err);
-      message.error("O‘chirishda xatolik!");
+      message.error(
+        lang === "ru" ? "Ошибка при удалении!" : "O‘chirishda xatolik!"
+      );
     }
   };
 
@@ -99,7 +108,7 @@ const Comments = () => {
 
   const columns = [
     {
-      title: "Image",
+      title: lang === "ru" ? "Изображение" : "Image",
       dataIndex: "image",
       align: "center",
       render: (img) =>
@@ -116,11 +125,23 @@ const Comments = () => {
           />
         ) : null,
     },
-    { title: "Full Name", dataIndex: "fullname", align: "center" },
-    { title: "Job", dataIndex: "job", align: "center" },
-    { title: "Comment", dataIndex: "comment", align: "center" },
     {
-      title: "Actions",
+      title: lang === "ru" ? "ФИО" : "Full Name",
+      dataIndex: "fullname",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Должность" : "Job",
+      dataIndex: "job",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Комментарий" : "Comment",
+      dataIndex: "comment",
+      align: "center",
+    },
+    {
+      title: lang === "ru" ? "Действия" : "Actions",
       width: 50,
       align: "center",
       render: (_, record) => (
@@ -130,7 +151,7 @@ const Comments = () => {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
-            Edit
+            {lang === "ru" ? "Редактировать" : "Edit"}
           </Button>
           <Button
             size="small"
@@ -138,7 +159,7 @@ const Comments = () => {
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id)}
           >
-            Delete
+            {lang === "ru" ? "Удалить" : "Delete"}
           </Button>
         </Space>
       ),
@@ -148,22 +169,35 @@ const Comments = () => {
   return (
     <div>
       <Card
-        title={<h2 className="text-xl font-bold">Comments CRUD</h2>}
+        title={
+          <h2 className="text-xl font-bold">
+            {lang === "ru" ? "Комментарии CRUD" : "Comments CRUD"}
+          </h2>
+        }
         extra={
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => {
-              form.resetFields();
-              setFileListImage([]);
-              setEditingId(null);
-              setOpen(true);
-            }}
+          <Select
+            value={lang}
+            onChange={setLang}
+            style={{ width: 120, marginRight: 10 }}
           >
-            Add New
-          </Button>
+            <Option value="uz">UZ</Option>
+            <Option value="ru">RU</Option>
+          </Select>
         }
       >
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => {
+            form.resetFields();
+            setFileListImage([]);
+            setEditingId(null);
+            setOpen(true);
+          }}
+        >
+          {lang === "ru" ? "Добавить" : "Add New"}
+        </Button>
+
         <Table
           size="small"
           bordered
@@ -177,7 +211,15 @@ const Comments = () => {
       </Card>
 
       <Modal
-        title={editingId ? "Edit Comment" : "Add Comment"}
+        title={
+          editingId
+            ? lang === "ru"
+              ? "Редактировать комментарий"
+              : "Edit Comment"
+            : lang === "ru"
+            ? "Добавить комментарий"
+            : "Add Comment"
+        }
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
@@ -186,29 +228,51 @@ const Comments = () => {
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Form.Item
             name="fullname"
-            label="Full Name"
+            label={lang === "ru" ? "ФИО" : "Full Name"}
             rules={[
-              { required: true, message: "Full name kiritilishi shart!" },
+              {
+                required: true,
+                message:
+                  lang === "ru"
+                    ? "ФИО обязательно!"
+                    : "Full name kiritilishi shart!",
+              },
             ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="job"
-            label="Job"
-            rules={[{ required: true, message: "Job kiritilishi shart!" }]}
+            label={lang === "ru" ? "Должность" : "Job"}
+            rules={[
+              {
+                required: true,
+                message:
+                  lang === "ru"
+                    ? "Должность обязательна!"
+                    : "Job kiritilishi shart!",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="comment"
-            label="Comment"
-            rules={[{ required: true, message: "Comment kiritilishi shart!" }]}
+            label={lang === "ru" ? "Комментарий" : "Comment"}
+            rules={[
+              {
+                required: true,
+                message:
+                  lang === "ru"
+                    ? "Комментарий обязателен!"
+                    : "Comment kiritilishi shart!",
+              },
+            ]}
           >
             <Input.TextArea rows={3} />
           </Form.Item>
 
-          <Form.Item label="Profile Image">
+          <Form.Item label={lang === "ru" ? "Фото профиля" : "Profile Image"}>
             <Upload
               beforeUpload={() => false}
               fileList={fileListImage}
@@ -216,12 +280,20 @@ const Comments = () => {
               accept=".png,.jpg,.jpeg"
               maxCount={1}
             >
-              <Button icon={<UploadOutlined />}>Select Image</Button>
+              <Button icon={<UploadOutlined />}>
+                {lang === "ru" ? "Выбрать изображение" : "Select Image"}
+              </Button>
             </Upload>
           </Form.Item>
 
           <Button type="primary" htmlType="submit" block>
-            {editingId ? "Update" : "Create"}
+            {editingId
+              ? lang === "ru"
+                ? "Обновить"
+                : "Update"
+              : lang === "ru"
+              ? "Создать"
+              : "Create"}
           </Button>
         </Form>
       </Modal>
