@@ -5,6 +5,7 @@ import { Dumbbell, LucideIcon, Briefcase, User } from "lucide-react";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
+import { useTranslation } from "react-i18next"; // 🔥 qo‘shildi
 
 interface Props {
   data?: Whom[];
@@ -36,6 +37,8 @@ const cardVariants: Variants = {
 };
 
 export default function TargetGroups({ data }: Props) {
+  const { t } = useTranslation(); // 🔥 qo‘shildi
+
   return (
     <section className="container">
       <div className="pb-15 lg:pb-30">
@@ -47,7 +50,8 @@ export default function TargetGroups({ data }: Props) {
           viewport={{ once: true }}
           className="text-center text-2xl sm:text-3xl md:text-5xl font-extrabold mb-5"
         >
-          <span className="text-[#e6c65a]">Kimlar uchun </span> mo‘ljallangan?
+          <span className="text-[#e6c65a]">{t("whom.titlespan")}</span>{" "}
+          {t("whom.title")}
         </motion.div>
 
         {/* Divider */}
@@ -69,7 +73,7 @@ export default function TargetGroups({ data }: Props) {
           viewport={{ once: true }}
           className="text-center text-sm sm:text-base text-gray-400 mt-3"
         >
-          Shilajit POWER har xil hayot tarzidagi erkaklar uchun moslashtirilgan
+          {t("whom.desc")}
         </motion.div>
 
         {/* Cards */}
@@ -100,7 +104,7 @@ export default function TargetGroups({ data }: Props) {
                   whileInView="visible"
                   viewport={{ once: true }}
                 >
-                  <div className="transition-all duration-300  hover:scale-101  group bg-white/5 w-full h-full text-white rounded-2xl shadow-lg p-6 max-w-sm mx-auto border border-neutral-800 flex flex-col items-center gap-4 ">
+                  <div className="transition-all duration-300 hover:scale-101 group bg-white/5 w-full h-full text-white rounded-2xl shadow-lg p-6 max-w-sm mx-auto border border-neutral-800 flex flex-col items-center gap-4 ">
                     <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
 
                     <div className="relative">
@@ -126,7 +130,7 @@ export default function TargetGroups({ data }: Props) {
                     <div className="w-full flex flex-col gap-3">
                       <div className="bg-red-900 rounded-lg p-4">
                         <p className="text-red-300 text-xs sm:text-sm font-semibold uppercase">
-                          Muammo
+                          {t("whom.problem")}
                         </p>
                         <p className="text-white text-sm sm:text-base">
                           {item.problem}
@@ -135,7 +139,7 @@ export default function TargetGroups({ data }: Props) {
 
                       <div className="bg-[#3e3b1d] rounded-lg p-4">
                         <p className="text-[#e6c65a] text-xs sm:text-sm font-semibold uppercase">
-                          Yechim
+                          {t("whom.solution")}
                         </p>
                         <p className="text-white text-sm sm:text-base">
                           {item.solution}
@@ -145,7 +149,7 @@ export default function TargetGroups({ data }: Props) {
 
                     <div className="w-full">
                       <p className="text-xs sm:text-sm font-semibold uppercase mb-2 text-white">
-                        Asosiy Foydalar:
+                        {t("whom.benefits")}
                       </p>
                       <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-gray-300">
                         {ben.map((benefit, i) => (
@@ -170,14 +174,14 @@ export default function TargetGroups({ data }: Props) {
           className="mt-12 max-w-5xl mx-auto bg-[#1a1a1a] rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-gray-800"
         >
           <p className="text-base sm:text-lg font-medium text-center md:text-left">
-            O‘zingizni qaysi guruhda ko‘rasiz?
+            {t("whom.footerTitle")}
             <span className="block text-gray-400 text-xs sm:text-sm mt-1">
-              Har qanday holatda ham, Shilajit POWER sizga yordam beradi
+              {t("whom.footerSubtitle")}
             </span>
           </p>
           <Link href={"#contact"}>
-            <button className="bg-[#e6c65a]  relative z-80 cursor-pointer text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#d4b84f] transition text-sm sm:text-base">
-              Hoziroq boshlash
+            <button className="bg-[#e6c65a] relative z-80 cursor-pointer text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#d4b84f] transition text-sm sm:text-base">
+              {t("whom.cta")}
             </button>
           </Link>
         </motion.div>

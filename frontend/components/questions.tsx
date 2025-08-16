@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown, Phone, Send } from "lucide-react";
 import { Contact, Question } from "@/types/api";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data?: Question[];
@@ -17,6 +18,8 @@ const mock = [
 
 export default function Questions({ data, contacts }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const { t } = useTranslation();
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -33,13 +36,11 @@ export default function Questions({ data, contacts }: Props) {
       >
         {/* Title */}
         <h2 className="text-center text-3xl md:text-5xl font-extrabold mb-5">
-          Tez-tez <span className="text-[#e6c65a]">so&apos;raladigan</span>{" "}
-          savollar
+          {t("faq.title")}{" "}
+          <span className="text-[#e6c65a]">{t("faq.titlespan")}</span>{" "}
+          {t("faq.title1")}
         </h2>
-        <p className="text-center text-gray-400 mt-3">
-          Shilajit POWER haqida eng ko&apos;p so&apos;raladigan savollar va
-          javoblar
-        </p>
+        <p className="text-center text-gray-400 mt-3">{t("faq.desc")}</p>
         <div className="w-16 h-1 bg-[#e6c65a] mx-auto mt-3 rounded mb-10" />
 
         {/* FAQ List */}
@@ -97,11 +98,9 @@ export default function Questions({ data, contacts }: Props) {
         >
           <div>
             <p className="text-lg font-semibold text-white mb-1">
-              Boshqa savollaringiz bormi?
+              {t("faq.qu")}
             </p>
-            <p className="text-neutral-400 text-sm">
-              Mutaxassislarimiz sizga yordam berishga tayyor
-            </p>
+            <p className="text-neutral-400 text-sm">{t("faq.qumin")}</p>
           </div>
           <div className="flex gap-3">
             {contacts?.length &&

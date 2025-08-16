@@ -2,6 +2,7 @@ import { Certificate, Statistic } from "@/types/api";
 import Stats from "./stats";
 import { motion } from "framer-motion";
 import { CertificateCard } from "./c-card";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data?: Certificate[];
@@ -18,6 +19,7 @@ const fadeUp = {
 };
 
 const Certificates = ({ data, statistics }: Props) => {
+  const { t } = useTranslation();
   return (
     <div className="container">
       <div className="pb-15 lg:pb-30 text-center">
@@ -29,8 +31,9 @@ const Certificates = ({ data, statistics }: Props) => {
           variants={fadeUp}
           custom={0.1}
         >
-          Sifat va <span className="text-[#e6c65a]">xavfsizlik</span>{" "}
-          sertifikatlari
+          {t("cer.title1")}{" "}
+          <span className="text-[#e6c65a]">{t("cer.titlespan")}</span>{" "}
+          {t("cer.title2")}
         </motion.h2>
 
         {/* Underline */}
@@ -52,7 +55,7 @@ const Certificates = ({ data, statistics }: Props) => {
           variants={fadeUp}
           custom={0.3}
         >
-          Xalqaro standartlar bo&apos;yicha tasdiqlangan sifat kafolatlari
+          {t("cer.desc")}
         </motion.p>
 
         <section className="py-12">

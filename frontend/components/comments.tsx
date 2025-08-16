@@ -5,6 +5,7 @@ import { Quote, CheckCircle2, Star } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Stats from "./stats";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data?: Comment[];
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function Comments({ data, statistics }: Props) {
+  const { t } = useTranslation();
   return (
     <div className="container">
       <div className="pb-15 lg:pb-30">
@@ -23,12 +25,10 @@ export default function Comments({ data, statistics }: Props) {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl md:text-5xl font-extrabold mb-5">
-            Haqiqiy odamlar,{" "}
-            <span className="text-[#e6c65a]">haqiqiy natijalar</span>
+            {t("comments.title")}{" "}
+            <span className="text-[#e6c65a]">{t("comments.titlespan")}</span>
           </h2>
-          <p className="text-gray-400 mt-3">
-            Minglab erkaklar Shilajit POWER bilan o‘z hayotlarini o‘zgartirdilar
-          </p>
+          <p className="text-gray-400 mt-3">{t("comments.subtitle")}</p>
           <div className="w-16 h-1 bg-[#e6c65a] mx-auto mt-3 rounded mb-10" />
         </motion.div>
         <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -83,7 +83,8 @@ export default function Comments({ data, statistics }: Props) {
 
                   {/* Verified */}
                   <p className="flex items-center gap-1 text-green-500 text-xs">
-                    <CheckCircle2 className="w-4 h-4" /> Tasdiqlangan xaridor
+                    <CheckCircle2 className="w-4 h-4" />{" "}
+                    {t("comments.verified")}
                   </p>
 
                   {/* Quote Icon */}

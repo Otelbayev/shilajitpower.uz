@@ -9,6 +9,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const benefits = [
   <Bolt key="bolt" className="w-6 h-6 text-[#e6c65a]" />,
@@ -33,8 +34,11 @@ const fadeUp = {
 };
 
 export default function BenefitsSection({ data }: Props) {
+  const { t, i18n } = useTranslation();
+
   return (
-    <section className="container">
+    <section className="container" key={i18n.language}>
+      {/* 🔑 key i18n.language bilan */}
       <div className="text-center py-15 lg:py-30">
         {/* Title */}
         <motion.h2
@@ -45,7 +49,9 @@ export default function BenefitsSection({ data }: Props) {
           variants={fadeUp}
           custom={0.1}
         >
-          Nega <span className="text-[#e6c65a]">Shilajit POWER</span> tanlanadi?
+          {t("why.title1")}{" "}
+          <span className="text-[#e6c65a]"> {t("why.titlespan")}</span>{" "}
+          {t("why.title2")}
         </motion.h2>
 
         {/* Underline */}
@@ -67,7 +73,7 @@ export default function BenefitsSection({ data }: Props) {
           variants={fadeUp}
           custom={0.3}
         >
-          Bilimli tadqiqotlar asosida isbotlangan 6 ta asosiy foyda
+          {t("why.desc")}
         </motion.p>
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -81,7 +87,7 @@ export default function BenefitsSection({ data }: Props) {
               custom={0.1 * index + 0.4}
             >
               <div
-                className="bg-white/5 transition-all duration-300 border border-white/10 rounded-2xl p-6 text-left backdrop-blur-sm 
+                className="bg-white/5 w-full h-full transition-all duration-300 border border-white/10 rounded-2xl p-6 text-left backdrop-blur-sm 
                 relative group hover:-translate-y-2 hover:bg-white/10 hover:shadow-lg hover:shadow-[#e6c65a]/10"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
@@ -106,7 +112,7 @@ export default function BenefitsSection({ data }: Props) {
           variants={fadeUp}
           custom={0.8}
         >
-          85+ mikroelement bir joyda
+          {t("why.btn")}
         </motion.button>
       </div>
     </section>

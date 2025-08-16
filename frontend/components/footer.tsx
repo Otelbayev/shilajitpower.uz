@@ -4,12 +4,15 @@ import { Contact } from "@/types/api";
 import { Phone, Send, Instagram, Mail, Diamond } from "lucide-react";
 import { motion } from "framer-motion";
 import { JSX } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data?: Contact[];
 }
 
 export default function Footer({ data }: Props) {
+  const { t } = useTranslation();
+
   const mock = [
     { icon: <Phone className="h-5 w-5" />, tone: "emerald" },
     { icon: <Send className="h-5 w-5" />, tone: "sky" },
@@ -29,34 +32,30 @@ export default function Footer({ data }: Props) {
             viewport={{ once: true, amount: 0.3 }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-wide text-[#e6c65a]">
-              SHILAJIT POWER
+              {t("footer.title")}
             </h2>
             <div className="w-16 h-1 bg-[#e6c65a] rounded mt-3 mb-6" />
 
             <p className="text-neutral-300 leading-relaxed max-w-2xl">
-              Biz tabiatning eng qudratli sovg&apos;asi bo&apos;lgan Shilajitni
-              yuqori sifat va samaradorlik bilan taqdim etamiz. Himalay
-              tog&apos;larining qudrati va ming yillik tabiat kuchi – har bir
-              erkakka yangi energiya, kuch va ishonch berish bizning
-              missiyamizdir.
+              {t("footer.about")}
             </p>
 
             <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
               <li className="inline-flex items-center gap-2 text-neutral-300">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                99.5% tozalik
+                {t("footer.feature1")}
               </li>
               <li className="inline-flex items-center gap-2 text-neutral-300">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#e6c65a]" />
-                Premium sifat
+                {t("footer.feature2")}
               </li>
               <li className="inline-flex items-center gap-2 text-neutral-300">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-sky-400" />
-                30 kun kafolat
+                {t("footer.feature3")}
               </li>
               <li className="inline-flex items-center gap-2 text-neutral-300">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-fuchsia-400" />
-                5000m+ balandlik
+                {t("footer.feature4")}
               </li>
             </ul>
           </motion.div>
@@ -69,7 +68,7 @@ export default function Footer({ data }: Props) {
             viewport={{ once: true, amount: 0.3 }}
           >
             <h3 className="text-xl font-semibold text-neutral-200 mb-4">
-              Bog&apos;lanish
+              {t("footer.contact")}
             </h3>
             <div className="flex flex-col gap-4">
               {data?.length &&
@@ -108,11 +107,10 @@ export default function Footer({ data }: Props) {
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          <p className="font-semibold text-[#e6c65a] mb-1">Muhim eslatma:</p>
-          <p>
-            Bu mahsulot kasalliklarni davolash oldini olish yoki tashxis
-            qo&apos;yish uchun mo&apos;ljallanmagan...
+          <p className="font-semibold text-[#e6c65a] mb-1">
+            {t("footer.important")}
           </p>
+          <p>{t("footer.warning")}</p>
         </motion.div>
 
         {/* Bottom bar */}
@@ -127,17 +125,17 @@ export default function Footer({ data }: Props) {
             <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#e6c65a] text-black font-bold">
               SP
             </span>
-            <span>© 2025 Shilajit POWER – Barcha huquqlar himoyalangan</span>
+            <span>{t("footer.copyright")}</span>
           </div>
           <nav className="flex items-center gap-6">
             <a className="hover:text-[#e6c65a] transition" href="#">
-              Maxfiylik siyosati
+              {t("footer.privacy")}
             </a>
             <a className="hover:text-[#e6c65a] transition" href="#">
-              Foydalanish shartlari
+              {t("footer.terms")}
             </a>
             <a className="hover:text-[#e6c65a] transition" href="#">
-              Qaytarish siyosati
+              {t("footer.refund")}
             </a>
           </nav>
         </motion.div>

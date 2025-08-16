@@ -11,6 +11,13 @@ export interface HeroSection {
   badge: string;
 }
 
+export interface Image {
+  id: number;
+  title: string;
+  description: string;
+  images: string;
+}
+
 export interface Why {
   id: number;
   title: string;
@@ -95,6 +102,7 @@ export interface Superior {
 
 export interface ApiData {
   hero_section: HeroSection;
+  images: Image;
   why: Why[];
   comments: Comment[];
   statistics: Statistic[];
@@ -103,6 +111,6 @@ export interface ApiData {
   certificates: Certificate[];
   prices: Price[];
   whom: Whom[];
-  orders?: Order[]; // optional
+  orders?: Order[];
   superior: Superior[];
 }

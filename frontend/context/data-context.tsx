@@ -7,6 +7,7 @@ import {
   useContext,
   ReactNode,
 } from "react";
+import { useTranslation } from "react-i18next";
 
 interface DataContextType {
   data: ApiData | null;
@@ -31,10 +32,15 @@ export default function DataProvider({ children }: DataProviderProps) {
   const [data, setData] = useState<ApiData | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const { i18n } = useTranslation();
+
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/all`);
+        setLoading(true);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/all?lang=${i18n.language}`
+        );
         const json: ApiData = await res.json();
         setData(json);
       } catch (error) {
@@ -44,7 +50,7 @@ export default function DataProvider({ children }: DataProviderProps) {
       }
     }
     fetchData();
-  }, []);
+  }, [i18n.language]);
 
   return (
     <DataContext.Provider value={{ data, loading }}>

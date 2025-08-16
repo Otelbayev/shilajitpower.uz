@@ -4,6 +4,7 @@ import Certificates from "@/components/certificates";
 import Comments from "@/components/comments";
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
+import Images from "@/components/images";
 import Price from "@/components/price";
 import Questions from "@/components/questions";
 import Superior from "@/components/superior";
@@ -13,12 +14,14 @@ import { useDataContext } from "@/context/data-context";
 import { useModalContext } from "@/context/modal-context";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { Loader, X, Check } from "lucide-react";
+import { Loader, X, Check, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function HomePage() {
   const { data, loading } = useDataContext();
   const { modalOpen, setModalOpen } = useModalContext();
+  const { i18n, t } = useTranslation(); // 🔑 i18n.language
 
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -65,24 +68,23 @@ export default function HomePage() {
     ? Math.round(originalPrice * 0.9)
     : null;
 
-  if (loading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Loader className="animate-spin w-10 h-10" />
-      </div>
-    );
-  }
-
   return (
-    <main>
+    <main key={i18n.language}>
+      {" "}
+      {/* 🔑 Sahifa til o‘zgarganda qayta render */}
+      {loading && (
+        <div className="w-full fixed inset-0 z-99 bg-black/90 h-screen flex items-center justify-center">
+          <Loader className="animate-spin w-10 h-10" />
+        </div>
+      )}
       <video
         autoPlay
         muted
         controls={false}
         loop
-        className="rotate-180 absolute  top-[-340px]  h-full w-full left-0 z-[-10] object-cover "
+        className="rotate-180 absolute top-[-340px] h-full w-full left-0 z-[-10] object-cover"
       >
-        <source src="/blackhole.webm" type="video/webm" />
+        <source src="/blackhole.mp4" type="video/webm" />
       </video>
       {modalOpen && (
         <div
@@ -93,82 +95,81 @@ export default function HomePage() {
           }}
         />
       )}
-
       <AnimatePresence>
         {modalOpen && (
-          <div>
-            <motion.div
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] mx-auto md:w-[400px] z-90"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              <motion.div className="bg-[#1a1a1a] rounded-3xl p-6 pb-8 shadow-lg">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold text-white">
-                    Buyurtma berish
-                  </h2>
-                  <X
-                    className="w-6 h-6 cursor-pointer text-white"
-                    onClick={() => {
-                      setModalOpen(null);
-                      setSuccess(false);
-                    }}
+          <motion.div
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] mx-auto md:w-[400px] z-90"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            <motion.div className="bg-[#1a1a1a] rounded-3xl p-6 pb-8 shadow-lg">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-white">
+                  {t("price.btn")}
+                </h2>
+                <X
+                  className="w-6 h-6 cursor-pointer text-white"
+                  onClick={() => {
+                    setModalOpen(null);
+                    setSuccess(false);
+                  }}
+                />
+              </div>
+
+              <div className="mb-4 text-gray-300">
+                <strong>{modalOpen.massa}</strong> -{" "}
+                {modalOpen?.isSubscription
+                  ? `${discountedPrice}.000`
+                  : originalPrice}{" "}
+                {t("price.som")}
+              </div>
+
+              {success ? (
+                <div className="flex items-center gap-2 text-green-500 font-semibold">
+                  <Check className="w-5 h-5" /> {t("price.success")}
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                  <input
+                    type="text"
+                    placeholder={t("price.name")}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="p-2 rounded-lg bg-gray-800 text-white"
                   />
-                </div>
-
-                <div className="mb-4 text-gray-300">
-                  <strong>{modalOpen.massa}</strong> -{" "}
-                  {modalOpen?.isSubscription
-                    ? `${discountedPrice}.000`
-                    : originalPrice}{" "}
-                  so&apos;m
-                </div>
-
-                {success ? (
-                  <div className="flex items-center gap-2 text-green-500 font-semibold">
-                    <Check className="w-5 h-5" /> Buyurtma muvaffaqiyatli
-                    yuborildi!
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <input
-                      type="text"
-                      placeholder="Ism"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                      className="p-2 rounded-lg bg-gray-800 text-white"
-                    />
-                    <input
-                      type="tel"
-                      placeholder="+998XXXXXXXXX"
-                      value={phone}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        setPhone(val);
-                      }}
-                      required
-                      className="p-2 rounded-lg bg-gray-800 text-white"
-                    />
-
-                    <button
-                      type="submit"
-                      disabled={loading1}
-                      className="bg-[#e6c65a] text-black py-2 rounded-lg font-semibold hover:brightness-110 transition"
-                    >
-                      {loading1 ? "Yuborilmoqda..." : "Yuborish"}
-                    </button>
-                  </form>
-                )}
-              </motion.div>
+                  <input
+                    type="tel"
+                    placeholder="+998XXXXXXXXX"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    className="p-2 rounded-lg bg-gray-800 text-white"
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading1}
+                    className="bg-[#e6c65a] text-black py-2 rounded-lg font-semibold hover:brightness-110 transition"
+                  >
+                    {loading ? (
+                      <div className="flex justify-center">
+                        <Loader2 className="animate-spin" />
+                      </div>
+                    ) : (
+                      t("price.send")
+                    )}
+                  </button>
+                </form>
+              )}
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
-
+      {/* Sectionlar */}
       <Hero data={data?.hero_section} />
+      <Images data={data?.images} />
       <Why data={data?.why} />
       <Superior data={data?.superior} />
       <Certificates

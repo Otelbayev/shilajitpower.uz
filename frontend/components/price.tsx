@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Price } from "@/types/api";
 import { motion } from "framer-motion";
 import { PriceCard } from "./price-plan";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data?: Price[];
@@ -20,10 +21,13 @@ const fadeUp = {
 
 export default function PricingPlans({ data }: Props) {
   const [isSubscription, setIsSubscription] = useState(false);
+
+  const { t } = useTranslation();
+
   if (!data || data.length === 0) return null;
+
   return (
     <section className="container">
-      {/* Title */}
       <div className=" pb-15 lg:pb-30">
         <motion.h2
           className="text-center text-3xl md:text-5xl font-extrabold"
@@ -33,13 +37,14 @@ export default function PricingPlans({ data }: Props) {
           variants={fadeUp}
           custom={0.1}
         >
-          O‘zingizga <span className="text-[#e6c65a]">mos paketni</span>{" "}
-          tanlang?
+          {t("price.title1")}{" "}
+          <span className="text-[#e6c65a]">{t("price.titlespan")}</span>{" "}
+          {t("price.title2")}
         </motion.h2>
 
         <div className="flex items-center flex-col justify-between m-8 ">
           <div className="flex items-center gap-3 text-sm border border-gray-400 bg-yellow-100/10 py-2 px-4 rounded-lg w-fit">
-            <span className="text-gray-400">Bir martalik xarid</span>
+            <span className="text-gray-400">{t("price.buy")}</span>
             <div
               className={`relative inline-block w-10 h-5 ${
                 isSubscription ? " bg-green-600" : " bg-gray-600"
@@ -52,7 +57,7 @@ export default function PricingPlans({ data }: Props) {
                 }`}
               ></div>
             </div>
-            <span className="text-gray-400">Obuna – 10% chegirma</span>
+            <span className="text-gray-400">{t("price.sale")}</span>
           </div>
         </div>
 
@@ -79,7 +84,7 @@ export default function PricingPlans({ data }: Props) {
         </div>
 
         <div className="text-center text-sm text-gray-500 mt-10">
-          🔒 Xavfsiz to‘lov • 🚚 24-48 soat yetkazib berish • 💯 Kafolat
+          🔒 {t("price.f1")} • 🚚 {t("price.f2")} • 💯 {t("price.f3")}
         </div>
       </div>
     </section>

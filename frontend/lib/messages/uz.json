@@ -1,0 +1,98 @@
+{
+  "hero": {
+    "min": "Haqiqiy Himoloy tog'laridan",
+    "comment": "ta izoh asosida",
+    "btn": "Buyurtma berish",
+    "premium": "Premium"
+  },
+  "why": {
+    "title1": "Nega",
+    "titlespan": "Shilajit POWER",
+    "title2": "tanlanadi?",
+    "desc": "Bilimli tadqiqotlar asosida isbotlangan 6 ta asosiy foyda",
+    "btn": "85+ mikroelement bir joyda"
+  },
+  "superior": {
+    "title": "Nega",
+    "titlespan": "Shilajit POWER",
+    "title1": "boshqalardan ustun?",
+    "type": "Mahsulot tarkibi",
+    "massa": "500mg",
+    "desc": "Tozalangan shilajit",
+    "daily": "Kunlik doza",
+    "dailymassa": "50g",
+    "total": "Umumiy miqdor",
+    "clean": "Tozalik darajasi",
+    "diff": "Asosiy foydalar:"
+  },
+  "cer": {
+    "title1": "Sifat va",
+    "titlespan": "xavfsizlik",
+    "title2": "sertifikatlari",
+    "desc": "Xalqaro standartlar bo'yicha tasdiqlangan sifat kafolatlari"
+  },
+  "price": {
+    "title1": "O‘zingizga",
+    "titlespan": "mos paketni",
+    "title2": "tanlang?",
+    "buy": "Bir martalik xarid",
+    "sale": "Obuna – 10% chegirma",
+    "pop": "Eng mashhur",
+    "f1": "Xavfsiz to‘lov",
+    "f2": "24-48 soat yetkazib berish",
+    "f3": "Kafolat",
+    "sale2": "10% chegirma qo‘llandi",
+    "som": "so'm",
+    "btn": "Buyurtma berish",
+    "send": "Yuborish",
+    "name": "Ism",
+    "every": "Har oyda 10% chegirma",
+    "success": "Buyurtma muvaffaqiyatli yuborildi!",
+    "array": [
+      "Premium Himalayan shilajit",
+      "99.5% tozalik kafolati",
+      "Tez yetkazib berish",
+      "30 kunlik pulni qaytarish"
+    ]
+  },
+  "whom": {
+    "titlespan": "Kimlar uchun",
+    "title": "mo‘ljallangan?",
+    "desc": "Shilajit POWER har xil hayot tarzidagi erkaklar uchun moslashtirilgan",
+    "problem": "Muammo",
+    "solution": "Yechim",
+    "benefits": "Asosiy Foydalar:",
+    "footerTitle": "O‘zingizni qaysi guruhda ko‘rasiz?",
+    "footerSubtitle": "Har qanday holatda ham, Shilajit POWER sizga yordam beradi",
+    "cta": "Hoziroq boshlash"
+  },
+  "comments": {
+    "title": "Haqiqiy odamlar,",
+    "titlespan": "haqiqiy natijalar",
+    "subtitle": "Minglab erkaklar Shilajit POWER bilan o‘z hayotlarini o‘zgartirdilar",
+    "verified": "Tasdiqlangan xaridor"
+  },
+  "faq": {
+    "title": "Tez-tez",
+    "titlespan": "so'raladigan",
+    "title1": "savollar",
+    "desc": "Shilajit POWER haqida eng ko'p so'raladigan savollar va javoblar",
+    "qu": "Boshqa savollaringiz bormi?",
+    "qumin": "Mutaxassislarimiz sizga yordam berishga tayyor"
+  },
+  "footer": {
+    "title": "SHILAJIT POWER",
+    "about": "Biz tabiatning eng qudratli sovg'ası bo'lgan Shilajitni yuqori sifat va samaradorlik bilan taqdim etamiz. Himalay tog'larining qudrati va ming yillik tabiat kuchi – har bir erkakka yangi energiya, kuch va ishonch berish bizning missiyamizdir.",
+    "feature1": "99.5% tozalik",
+    "feature2": "Premium sifat",
+    "feature3": "30 kun kafolat",
+    "feature4": "5000m+ balandlik",
+    "contact": "Bog'lanish",
+    "important": "Muhim eslatma:",
+    "warning": "Bu mahsulot kasalliklarni davolash oldini olish yoki tashxis qo'yish uchun mo'ljallanmagan...",
+    "copyright": "© 2025 Shilajit POWER – Barcha huquqlar himoyalangan",
+    "privacy": "Maxfiylik siyosati",
+    "terms": "Foydalanish shartlari",
+    "refund": "Qaytarish siyosati"
+  }
+}

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Crown } from "lucide-react";
 import clsx from "clsx";
 import { useModalContext } from "@/context/modal-context";
+import { useTranslation } from "react-i18next";
 
 export interface Price {
   id: number;
@@ -25,6 +26,8 @@ interface Props {
 export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
   const originalPrice = data.price;
   const discountedPrice = Math.round(originalPrice * 0.9);
+  const { t } = useTranslation();
+  const items = t("price.array", { returnObjects: true }) as string[];
 
   const { setModalOpen } = useModalContext();
 
@@ -39,7 +42,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
         {index === 1 && (
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#e6c65a] text-black text-xs px-3 py-1 rounded-full font-bold">
             <span className="flex items-center justify-center gap-2">
-              <Crown /> Eng mashhur
+              <Crown /> {t("price.pop")}
             </span>
           </div>
         )}
@@ -66,7 +69,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
                 ? `${discountedPrice}.000`
                 : originalPrice
               ).toLocaleString()}{" "}
-              so&apos;m
+              {t("price.som")}
             </div>
 
             {isSubscription && (
@@ -76,7 +79,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
                 transition={{ duration: 0.3 }}
                 className="text-sm text-green-400 py-2"
               >
-                10% chegirma qo‘llandi
+                {t("price.sale2")}
               </motion.div>
             )}
 
@@ -93,12 +96,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
           </motion.div>
 
           <ul className="space-y-3 mb-6">
-            {[
-              "Premium Himalayan shilajit",
-              "99.5% tozalik kafolati",
-              "Tez yetkazib berish",
-              "30 kunlik pulni qaytarish",
-            ].map((item, i) => (
+            {items.map((item, i) => (
               <li key={i} className="flex items-center gap-2 text-sm">
                 <Check className="w-4 h-4 text-[#e6c65a]" />
                 {item}
@@ -115,7 +113,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
                   className="flex items-center gap-2 text-sm"
                 >
                   <Check className="w-4 h-4 text-[#e6c65a]" />
-                  Har oyda 10% chegirma
+                  {t("price.every")}
                 </motion.li>
               )}
             </AnimatePresence>
@@ -127,7 +125,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
           onClick={() => setModalOpen({ ...data, isSubscription })}
           className="bg-[#e6c65a]  relative z-80 cursor-pointer text-black font-semibold w-full py-2 rounded-lg hover:brightness-110 transition"
         >
-          Buyurtma berish
+          {t("price.btn")}
         </motion.button>
       </div>
     </>

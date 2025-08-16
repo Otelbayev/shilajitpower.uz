@@ -16,7 +16,7 @@ export const CertificateCard = ({ data }: { data: Certificate }) => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.3 }}
-        className="bg-gradient-to-b from-neutral-900 to-black rounded-2xl p-6 text-center shadow-md border border-neutral-800 flex flex-col items-center gap-4 transition-all duration-300 ease-out relative group"
+        className="bg-gradient-to-b  w-full h-full from-neutral-900 to-black rounded-2xl p-6 text-center shadow-md border border-neutral-800 flex flex-col items-center gap-4 transition-all duration-300 ease-out relative group"
       >
         {/* Hover Glow Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#e6c65a]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />

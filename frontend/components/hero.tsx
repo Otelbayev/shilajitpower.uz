@@ -3,7 +3,8 @@ import { HeroSection } from "@/types/api";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./language-switcher";
 
 interface HeroProps {
   data?: HeroSection;
@@ -19,11 +20,19 @@ const fadeUp = {
 };
 
 export default function ShilajitHero({ data }: HeroProps) {
+  const { t, i18n } = useTranslation();
+
   return (
     <div className="container">
-      <div className="relative min-h-screen mt-30 py-10 lg:py-0  flex flex-col justify-center">
+      <div
+        className="relative min-h-screen mt-30 py-10 lg:py-0 flex flex-col justify-center"
+        key={i18n.language} // 🔑 til o'zgarganda qayta render bo'lish uchun
+      >
+        <div className="flex justify-center">
+          <LanguageSwitcher />
+        </div>
+
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-30">
-          {/* Left Content */}
           <motion.div
             className="flex flex-col gap-5 justify-center items-center lg:items-start"
             initial="hidden"
@@ -36,7 +45,7 @@ export default function ShilajitHero({ data }: HeroProps) {
               custom={0.1}
             >
               <div className="w-2 h-2 bg-[#e6c65a] rounded-full"></div>
-              Haqiqiy Himoloy tog&apos;laridan
+              {t("hero.min")}
             </motion.div>
 
             <motion.div variants={fadeUp} custom={0.2}>
@@ -81,7 +90,7 @@ export default function ShilajitHero({ data }: HeroProps) {
                 ({data?.rating})
               </span>
               <span className="text-gray-500 text-sm">
-                {data?.reviews} ta izoh asosida
+                {data?.reviews} {t("hero.comment")}
               </span>
             </motion.div>
 
@@ -95,16 +104,15 @@ export default function ShilajitHero({ data }: HeroProps) {
 
             <Link href="#order">
               <motion.button
-                className="w-fit relative z-80 cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl  hover:scale-101 hover:shadow-lg hover:shadow-[#e6c65a]/30"
+                className="w-fit relative z-80 cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl hover:scale-101 hover:shadow-lg hover:shadow-[#e6c65a]/30"
                 variants={fadeUp}
                 custom={0.7}
               >
-                Buyurtma berish
+                {t("hero.btn")}
               </motion.button>
             </Link>
           </motion.div>
 
-          {/* Right Content */}
           <motion.div
             className="flex justify-center lg:justify-end"
             initial="hidden"
@@ -117,7 +125,7 @@ export default function ShilajitHero({ data }: HeroProps) {
               custom={0.3}
             >
               <div className="absolute -top-3 -right-3 bg-[#e6c65a] text-black px-4 py-2 rounded-full text-xs font-bold z-10 shadow-lg transition-transform duration-300 group-hover:scale-105">
-                Premium
+                {t("hero.premium")}
               </div>
               <div className="rounded-2xl border border-[#e6c65a]/50 p-4 lg:p-8 w-75 lg:w-96 h-[350px] lg:h-[450px] backdrop-blur-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl group-hover:shadow-[#e6c65a]/20">
                 <div className="flex flex-col items-center rounded-2xl border border-[#e6c65a]/50 justify-center h-full gap-3 bg-[#e6c65a]/10">
@@ -138,7 +146,6 @@ export default function ShilajitHero({ data }: HeroProps) {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:block"
           initial="hidden"

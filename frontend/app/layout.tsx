@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import DataProvider from "@/context/data-context";
 import ModalProvider from "@/context/modal-context";
+import Providers from "./providers";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     "shilajit dorisi",
   ],
   icons: {
-    icon: "/icon.png",
+    icon: "/1.webp",
   },
   authors: [{ name: "Shilajit Power", url: "https://dezex.uz" }],
   creator: "Shilajit Power Team",
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
     siteName: "Shilajit Power",
     images: [
       {
-        url: "https://dezex.uz/image.webp",
+        url: "https://dezex.uz/1.webp",
         width: 1200,
         height: 630,
         alt: "Shilajit Power – Tabiiy Kuch",
@@ -57,23 +58,27 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shilajit Power – Tabiiy Kuch Va Energiya Manbai",
     description: "100% tabiiy shilajit mahsuloti, kuch va bardamlik uchun.",
-    images: ["https://dezex.uz/image.webp"],
+    images: ["https://dezex.uz/1.webp"],
     site: "@shilajitpower",
     creator: "@shilajitpower",
   },
   category: "Health & Wellness",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface LayoutProps {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}
+export default async function RootLayout({ children, params }: LayoutProps) {
+  const { locale } = await params;
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={montserrat.className}>
         <DataProvider>
-          <ModalProvider>{children}</ModalProvider>
+          <ModalProvider>
+            <Providers params={{ locale }}>{children}</Providers>
+          </ModalProvider>
         </DataProvider>
       </body>
     </html>
