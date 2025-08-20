@@ -26,7 +26,7 @@ export default function ShilajitHero({ data }: HeroProps) {
     <div className="relative">
       <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
       <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
+        className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
         style={{ backgroundImage: "url('/bg1.png')" }}
       />
       <div className="container">

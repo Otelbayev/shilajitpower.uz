@@ -160,19 +160,34 @@ export default function HomePage() {
       <div className="relative">
         <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
         <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
           style={{ backgroundImage: "url('/bg2.png')" }}
         />
         <Images data={data?.images} />
+      </div>
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg3.png')" }}
+        />
+
         <Why data={data?.why} />
       </div>
       <div className="relative">
         <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
         <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
-          style={{ backgroundImage: "url('/bg3.png')" }}
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg4.png')" }}
         />
         <Superior data={data?.superior} />
+      </div>
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg1.png')" }}
+        />
         <Certificates
           data={data?.certificates}
           statistics={data?.statistics.slice(0, 4)}
@@ -181,25 +196,40 @@ export default function HomePage() {
       <div className="relative">
         <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
         <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
-          style={{ backgroundImage: "url('/bg4.png')" }}
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg2.png')" }}
         />
-        <div>
-          <section id="order">
-            <Price data={data?.prices} />
-          </section>
-          <Whom data={data?.whom} />
-          <Comments
-            data={data?.comments}
-            statistics={data?.statistics.slice(4, 8)}
-          />
-        </div>
+
+        <section id="order">
+          <Price data={data?.prices} />
+        </section>
       </div>
       <div className="relative">
         <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
         <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
-          style={{ backgroundImage: "url('/bg2.png')" }}
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg3.png')" }}
+        />
+
+        <Whom data={data?.whom} />
+      </div>
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg4.png')" }}
+        />
+
+        <Comments
+          data={data?.comments}
+          statistics={data?.statistics.slice(4, 8)}
+        />
+      </div>
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg1.png')" }}
         />
         <Questions
           data={data?.questions}
