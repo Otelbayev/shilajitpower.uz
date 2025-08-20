@@ -38,7 +38,7 @@ export default function BenefitsSection({ data }: Props) {
 
   return (
     <section className="container" key={i18n.language}>
-      <div className="text-center py-15 lg:py-30">
+      <div className="text-center py-15 ">
         <motion.h2
           className="text-6xl md:text-8xl font-extrabold fiona"
           initial="hidden"

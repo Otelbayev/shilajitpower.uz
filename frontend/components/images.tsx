@@ -29,7 +29,7 @@ export default function Images({ data }: Prop) {
     <div className="container">
       <div
         key={i18n.language}
-        className="w-full pt-10 px-1 md:px-0 md:pt-20 md:mb-10 grid md:grid-cols-2 gap-6 items-center"
+        className="w-full pt-10 px-1 md:px-0 md:pt-20 md:pb-10 grid md:grid-cols-2 gap-6 items-center"
       >
         <motion.div
           initial={{ opacity: 0, y: 40 }}

@@ -9,7 +9,6 @@ html {
 }
 
 body {
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
   background-color: #0a0a0a;
   color: #ffffff;
