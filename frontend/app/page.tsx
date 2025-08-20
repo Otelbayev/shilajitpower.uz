@@ -70,25 +70,14 @@ export default function HomePage() {
 
   return (
     <main key={i18n.language}>
-      {" "}
-      {/* 🔑 Sahifa til o‘zgarganda qayta render */}
       {loading && (
         <div className="w-full fixed inset-0 z-99 bg-black/90 h-screen flex items-center justify-center">
           <Loader className="animate-spin w-10 h-10" />
         </div>
       )}
-      <video
-        autoPlay
-        muted
-        controls={false}
-        loop
-        className="rotate-180 absolute top-[-340px] h-full w-full left-0 z-[-10] object-cover"
-      >
-        <source src="/blackhole.mp4" type="video/webm" />
-      </video>
       {modalOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full z-85 bg-black/70 backdrop-blur-sm"
+          className="fixed top-0 left-0 w-full h-full z-90 bg-black/70 backdrop-blur-sm"
           onClick={() => {
             setModalOpen(null);
             setSuccess(false);
@@ -167,24 +156,58 @@ export default function HomePage() {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* Sectionlar */}
       <Hero data={data?.hero_section} />
-      <Images data={data?.images} />
-      <Why data={data?.why} />
-      <Superior data={data?.superior} />
-      <Certificates
-        data={data?.certificates}
-        statistics={data?.statistics.slice(0, 4)}
-      />
-      <section id="order">
-        <Price data={data?.prices} />
-      </section>
-      <Whom data={data?.whom} />
-      <Comments
-        data={data?.comments}
-        statistics={data?.statistics.slice(4, 8)}
-      />
-      <Questions data={data?.questions} contacts={data?.contacts.slice(0, 2)} />
+      <div
+        className="bg-cover bg-center bg-fixed relative"
+        style={{ backgroundImage: "url('/bg2.png')" }}
+      >
+        <div className="absolute z-0 inset-0 bg-black/60"></div>
+        <div className="relative z-80">
+          <Images data={data?.images} />
+          <Why data={data?.why} />
+        </div>
+      </div>
+      <div
+        className="bg-cover bg-center bg-fixed relative"
+        style={{ backgroundImage: "url('/bg3.png')" }}
+      >
+        <div className="absolute z-0 inset-0 bg-black/60"></div>
+        <div className="relative z-80">
+          <Superior data={data?.superior} />
+          <Certificates
+            data={data?.certificates}
+            statistics={data?.statistics.slice(0, 4)}
+          />
+        </div>
+      </div>
+      <div
+        className="bg-cover bg-center bg-fixed relative"
+        style={{ backgroundImage: "url('/bg4.png')" }}
+      >
+        <div className="absolute z-0 inset-0 bg-black/60" />
+        <div className="relative ">
+          <section id="order">
+            <Price data={data?.prices} />
+          </section>
+          <Whom data={data?.whom} />
+          <Comments
+            data={data?.comments}
+            statistics={data?.statistics.slice(4, 8)}
+          />
+        </div>
+      </div>
+      <div
+        className="bg-cover bg-center bg-fixed relative"
+        style={{ backgroundImage: "url('/bg2.png')" }}
+      >
+        <div className="absolute z-0 inset-0 bg-black/60" />
+        <div className="relative z-80">
+          <Questions
+            data={data?.questions}
+            contacts={data?.contacts.slice(0, 2)}
+          />
+        </div>
+      </div>
       <section id="contact">
         <Footer data={data?.contacts} />
       </section>

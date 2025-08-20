@@ -16,7 +16,7 @@ export default function Comments({ data, statistics }: Props) {
   const { t } = useTranslation();
   return (
     <div className="container">
-      <div className="pb-15 lg:pb-30">
+      <div className="lg:pb-30">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 40 }}
@@ -31,7 +31,7 @@ export default function Comments({ data, statistics }: Props) {
           <p className="text-gray-400 mt-3">{t("comments.subtitle")}</p>
           <div className="w-16 h-1 bg-[#e6c65a] mx-auto mt-3 rounded mb-10" />
         </motion.div>
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 mb-6">
           {data?.length &&
             data.map((r, i) => (
               <motion.div

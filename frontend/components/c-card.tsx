@@ -30,7 +30,7 @@ export const CertificateCard = ({ data }: { data: Certificate }) => {
           ) : (
             <motion.div
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsOpen(true)}
+              // onClick={() => setIsOpen(true)}
               className="w-full h-full flex items-center justify-center cursor-pointer"
             >
               <Image

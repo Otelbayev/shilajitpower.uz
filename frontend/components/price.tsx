@@ -28,7 +28,7 @@ export default function PricingPlans({ data }: Props) {
 
   return (
     <section className="container">
-      <div className=" pb-15 lg:pb-30">
+      <div className="py-15 lg:pb-30">
         <motion.h2
           className="text-center text-3xl md:text-5xl font-extrabold"
           initial="hidden"

@@ -55,7 +55,7 @@ export default function ShilajitSection({ data }: Props) {
 
   return (
     <section className="container">
-      <div className="pb-15 lg:pb-30">
+      <div className="pt-15 lg:pb-30">
         <motion.h2
           className="text-3xl md:text-5xl font-extrabold text-center pb-15"
           initial="hidden"

@@ -12,7 +12,7 @@ interface Prop {
 }
 
 export default function Images({ data }: Prop) {
-  const { i18n } = useTranslation(); // 🔑 tilni olish
+  const { i18n, t } = useTranslation();
   const [current, setCurrent] = useState(0);
 
   const images = data?.images ? (JSON.parse(data?.images) as string[]) : [];
@@ -29,7 +29,7 @@ export default function Images({ data }: Prop) {
     <div className="container">
       <div
         key={i18n.language} // 🔑 til o'zgarganda slider qayta render bo'ladi
-        className="w-full mt-10 px-1 md:px-0 md:mt-20 md:mb-10 grid md:grid-cols-2 gap-6 items-center"
+        className="w-full pt-10 px-1 md:px-0 md:pt-20 md:mb-10 grid md:grid-cols-2 gap-6 items-center"
       >
         {/* LEFT SIDE */}
         <motion.div
@@ -37,8 +37,11 @@ export default function Images({ data }: Prop) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="w-full flex flex-col items-center"
+          className="w-full flex flex-col relative items-center"
         >
+          <div className="absolute -top-3 right-30 z-90 bg-[#e6c65a] text-black px-4 py-2 rounded-full text-xs font-bold shadow-lg transition-transform duration-300 group-hover:scale-105">
+            {t("hero.premium")}
+          </div>
           <div className="relative w-full max-w-md aspect-square overflow-hidden rounded-2xl shadow-lg">
             <AnimatePresence mode="wait">
               <motion.div

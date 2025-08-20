@@ -28,7 +28,7 @@ export default function Questions({ data, contacts }: Props) {
   return (
     <section className="container">
       <motion.div
-        className="max-w-3xl mx-auto"
+        className="max-w-3xl mx-auto  py-8"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
