@@ -34,7 +34,7 @@ const StatCard = ({ stat, idx }: { stat: Statistic; idx: number }) => {
       whileHover={{ scale: 1.05 }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-[#e6c65a]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
-      <div className="relative z-10">
+      <div className="relative ">
         <h3 className="text-2xl font-bold text-[#e6c65a] flex justify-center">
           <motion.span>{rounded}</motion.span>
           <span>{suffix}</span>

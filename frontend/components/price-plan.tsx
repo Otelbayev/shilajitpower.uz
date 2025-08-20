@@ -123,7 +123,7 @@ export const PriceCard: React.FC<Props> = ({ data, index, isSubscription }) => {
         <button
           // whileTap={{ scale: 0.97 }}
           onClick={() => setModalOpen({ ...data, isSubscription })}
-          className="bg-[#e6c65a] relative z-81  cursor-pointer text-black font-semibold w-full py-2 rounded-lg hover:brightness-110 transition"
+          className="bg-[#e6c65a] relative   cursor-pointer text-black font-semibold w-full py-2 rounded-lg hover:brightness-110 transition"
         >
           {t("price.btn")}
         </button>

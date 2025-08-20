@@ -28,14 +28,14 @@ export default function Questions({ data, contacts }: Props) {
   return (
     <section className="container">
       <motion.div
-        className="max-w-3xl mx-auto  py-8"
+        className="py-8"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         {/* Title */}
-        <h2 className="text-center text-3xl md:text-5xl font-extrabold mb-5">
+        <h2 className="text-center fiona text-6xl md:text-8xl font-extrabold mb-5">
           {t("faq.title")}{" "}
           <span className="text-[#e6c65a]">{t("faq.titlespan")}</span>{" "}
           {t("faq.title1")}
@@ -44,7 +44,7 @@ export default function Questions({ data, contacts }: Props) {
         <div className="w-16 h-1 bg-[#e6c65a] mx-auto mt-3 rounded mb-10" />
 
         {/* FAQ List */}
-        <div className="space-y-3">
+        <div className="space-y-3 max-w-3xl mx-auto ">
           {data?.map((faq) => (
             <motion.div
               key={faq.id}

@@ -57,7 +57,7 @@ export default function ShilajitSection({ data }: Props) {
     <section className="container">
       <div className="pt-15 lg:pb-30">
         <motion.h2
-          className="text-3xl md:text-5xl font-extrabold text-center pb-15"
+          className="text-6xl md:text-8xl font-extrabold text-center fiona pb-15"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}

@@ -28,10 +28,9 @@ export default function Images({ data }: Prop) {
   return (
     <div className="container">
       <div
-        key={i18n.language} // 🔑 til o'zgarganda slider qayta render bo'ladi
+        key={i18n.language}
         className="w-full pt-10 px-1 md:px-0 md:pt-20 md:mb-10 grid md:grid-cols-2 gap-6 items-center"
       >
-        {/* LEFT SIDE */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -39,13 +38,13 @@ export default function Images({ data }: Prop) {
           viewport={{ once: true }}
           className="w-full flex flex-col relative items-center"
         >
-          <div className="absolute -top-3 right-30 z-90 bg-[#e6c65a] text-black px-4 py-2 rounded-full text-xs font-bold shadow-lg transition-transform duration-300 group-hover:scale-105">
+          <div className="absolute -top-3 z-90 right-0 2xl:right-30 bg-[#e6c65a] text-black px-2 py-1 md:px-4 md:py-2 rounded-full text-xs font-bold shadow-lg transition-transform duration-300 group-hover:scale-105">
             {t("hero.premium")}
           </div>
           <div className="relative w-full max-w-md aspect-square overflow-hidden rounded-2xl shadow-lg">
             <AnimatePresence mode="wait">
               <motion.div
-                key={current} // slide o'zgarishini animatsiya qiladi
+                key={current}
                 initial={{ opacity: 0, x: 100 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
@@ -61,7 +60,6 @@ export default function Images({ data }: Prop) {
               </motion.div>
             </AnimatePresence>
 
-            {/* Buttons */}
             <button
               onClick={prevSlide}
               className="absolute top-1/2 -left-3 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black transition"
@@ -105,7 +103,7 @@ export default function Images({ data }: Prop) {
           viewport={{ once: true }}
           className="text-center md:text-left px-4 md:px-0"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-[#e6c65a]">
+          <h2 className="text-6xl fiona md:text-8xl font-bold mb-4 text-[#e6c65a]">
             {data?.title}
           </h2>
           <p className="text-gray-100 leading-relaxed">{data?.description}</p>

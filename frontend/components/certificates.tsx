@@ -22,9 +22,9 @@ const Certificates = ({ data, statistics }: Props) => {
   const { t } = useTranslation();
   return (
     <div className="container">
-      <div className="lg:pb-30 text-center">
+      <div className="pt-20 lg:pb-30 text-center">
         <motion.h2
-          className="text-3xl md:text-5xl font-extrabold"
+          className="text-6xl md:text-8xl font-extrabold fiona"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}

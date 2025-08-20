@@ -30,7 +30,7 @@ export default function PricingPlans({ data }: Props) {
     <section className="container">
       <div className="py-15 lg:pb-30">
         <motion.h2
-          className="text-center text-3xl md:text-5xl font-extrabold"
+          className="text-6xl md:text-8xl font-extrabold fiona text-center"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}

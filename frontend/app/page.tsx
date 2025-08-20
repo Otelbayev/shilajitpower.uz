@@ -158,8 +158,13 @@ export default function HomePage() {
       </AnimatePresence>
       <Hero data={data?.hero_section} />
       <div
-        className="bg-cover bg-center bg-fixed relative"
-        style={{ backgroundImage: "url('/bg2.png')" }}
+        className="relative"
+        style={{
+          backgroundImage: "url('/bg2.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
       >
         <div className="absolute z-0 inset-0 bg-black/60"></div>
         <div className="relative z-80">
@@ -168,8 +173,13 @@ export default function HomePage() {
         </div>
       </div>
       <div
-        className="bg-cover bg-center bg-fixed relative"
-        style={{ backgroundImage: "url('/bg3.png')" }}
+        className="relative"
+        style={{
+          backgroundImage: "url('/bg3.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
       >
         <div className="absolute z-0 inset-0 bg-black/60"></div>
         <div className="relative z-80">
@@ -181,8 +191,13 @@ export default function HomePage() {
         </div>
       </div>
       <div
-        className="bg-cover bg-center bg-fixed relative"
-        style={{ backgroundImage: "url('/bg4.png')" }}
+        className="relative"
+        style={{
+          backgroundImage: "url('/bg4.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
       >
         <div className="absolute z-0 inset-0 bg-black/60" />
         <div className="relative ">
@@ -197,8 +212,13 @@ export default function HomePage() {
         </div>
       </div>
       <div
-        className="bg-cover bg-center bg-fixed relative"
-        style={{ backgroundImage: "url('/bg2.png')" }}
+        className="relative"
+        style={{
+          backgroundImage: "url('/bg2.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
       >
         <div className="absolute z-0 inset-0 bg-black/60" />
         <div className="relative z-80">

@@ -43,16 +43,16 @@ export default function TargetGroups({ data }: Props) {
     <section className="container">
       <div className="pb-15 lg:pb-30">
         {/* Title */}
-        <motion.div
+        <motion.h2
           variants={titleVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center text-2xl sm:text-3xl md:text-5xl font-extrabold mb-5"
+          className="text-center text-6xl md:text-8xl fiona font-extrabold mb-5"
         >
           <span className="text-[#e6c65a]">{t("whom.titlespan")}</span>{" "}
           {t("whom.title")}
-        </motion.div>
+        </motion.h2>
 
         {/* Divider */}
         <motion.div
@@ -104,7 +104,7 @@ export default function TargetGroups({ data }: Props) {
                   whileInView="visible"
                   viewport={{ once: true }}
                 >
-                  <div className="transition-all duration-300 hover:scale-101 group bg-white/5 w-full h-full text-white rounded-2xl shadow-lg p-6 max-w-sm mx-auto border border-neutral-800 flex flex-col items-center gap-4 ">
+                  <div className="relative transition-all duration-300 hover:scale-101 group bg-white/5 w-full h-full text-white rounded-2xl shadow-lg p-6 max-w-sm mx-auto border border-neutral-800 flex flex-col items-center gap-4 ">
                     <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
 
                     <div className="relative">
@@ -180,7 +180,7 @@ export default function TargetGroups({ data }: Props) {
             </span>
           </p>
           <Link href={"#contact"}>
-            <button className="bg-[#e6c65a] relative z-80 cursor-pointer text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#d4b84f] transition text-sm sm:text-base">
+            <button className="bg-[#e6c65a] relative  cursor-pointer text-black px-6 py-2 rounded-lg font-semibold hover:bg-[#d4b84f] transition text-sm sm:text-base">
               {t("whom.cta")}
             </button>
           </Link>

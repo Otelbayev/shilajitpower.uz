@@ -38,7 +38,7 @@ export const CertificateCard = ({ data }: { data: Certificate }) => {
                 alt={data.title}
                 width={100}
                 height={130}
-                className="object-contain max-h-32 z-2"
+                className="object-contain max-h-32 "
               />
             </motion.div>
           )}
@@ -63,7 +63,7 @@ export const CertificateCard = ({ data }: { data: Certificate }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex items-center justify-center bg-black/80"
+            className="absolute inset-0  flex items-center justify-center bg-black/80"
             onClick={() => setIsOpen(false)}
           >
             <motion.div

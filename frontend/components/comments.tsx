@@ -24,7 +24,7 @@ export default function Comments({ data, statistics }: Props) {
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-5">
+          <h2 className="text-6xl fiona md:text-8xl font-extrabold mb-5">
             {t("comments.title")}{" "}
             <span className="text-[#e6c65a]">{t("comments.titlespan")}</span>
           </h2>
@@ -46,7 +46,7 @@ export default function Comments({ data, statistics }: Props) {
                 {/* Glow hover effect */}
                 <div className="absolute inset-0 bg-gradient-to-b from-[#e6c65a]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
 
-                <div className="relative z-10">
+                <div className="relative ">
                   {/* User */}
                   <div className="flex items-center gap-3 mb-3">
                     <Image

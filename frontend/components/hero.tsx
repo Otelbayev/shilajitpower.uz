@@ -24,10 +24,15 @@ export default function ShilajitHero({ data }: HeroProps) {
 
   return (
     <div
-      className="bg-cover bg-center bg-fixed relative"
-      style={{ backgroundImage: "url('/bg1.png')" }}
+      className="relative"
+      style={{
+        backgroundImage: "url('/bg1.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
     >
-      <div className="absolute z-0 inset-0 bg-black/40"></div>
+      <div className="absolute  inset-0 bg-black/40"></div>
 
       <div className="container">
         <div
@@ -55,10 +60,10 @@ export default function ShilajitHero({ data }: HeroProps) {
               </motion.div>
 
               <motion.div variants={fadeUp} custom={0.2}>
-                <h1 className="text-6xl text-center lg:text-left sm:text-6xl lg:text-8xl font-bold text-white leading-none tracking-tight">
+                <h1 className="text-7xl fiona text-center lg:text-left sm:text-8xl lg:text-9xl font-bold text-white leading-none tracking-tight">
                   {data?.title.split(" ")[0]}
                 </h1>
-                <h2 className="text-6xl text-center lg:text-left sm:text-6xl lg:text-8xl font-bold text-[#e6c65a] leading-none tracking-tight">
+                <h2 className="text-7xl fiona text-center lg:text-left sm:text-8xl lg:text-9xl font-bold text-[#e6c65a] leading-none tracking-tight">
                   {data?.title.split(" ")[1]}
                 </h2>
               </motion.div>
@@ -110,7 +115,7 @@ export default function ShilajitHero({ data }: HeroProps) {
 
               <Link href="#order">
                 <motion.button
-                  className="w-fit relative z-80 cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl hover:scale-101 hover:shadow-lg hover:shadow-[#e6c65a]/30"
+                  className="w-fit relative  cursor-pointer bg-[#e6c65a] hover:bg-[#d1b350] text-black font-semibold px-8 py-4 text-lg rounded-xl hover:scale-101 hover:shadow-lg hover:shadow-[#e6c65a]/30"
                   variants={fadeUp}
                   custom={0.7}
                 >
@@ -120,7 +125,7 @@ export default function ShilajitHero({ data }: HeroProps) {
             </motion.div>
 
             <motion.div
-              className="flex justify-center lg:justify-end"
+              className="hidden md:flex justify-center lg:justify-end"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
@@ -138,7 +143,7 @@ export default function ShilajitHero({ data }: HeroProps) {
                     </span>
                   </div> */}
                     <div className="text-center">
-                      <h3 className="text-[#e6c65a] font-bold text-2xl tracking-wide">
+                      <h3 className="text-[#e6c65a] fiona font-bold text-4xl tracking-wide">
                         {data?.title}
                       </h3>
                       <p className="text-gray-400 text-base">{data?.badge}</p>

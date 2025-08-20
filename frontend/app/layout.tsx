@@ -1,12 +1,39 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { Montserrat } from "next/font/google";
 import DataProvider from "@/context/data-context";
 import ModalProvider from "@/context/modal-context";
 import Providers from "./providers";
+import localFont from "next/font/local";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
+});
+
+const fiona = localFont({
+  src: [
+    {
+      path: "../public/Fiona/Fiona-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/Fiona/Fiona-Regular.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/Fiona/Fiona-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/Fiona/Fiona-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-fiona",
 });
 
 export const metadata: Metadata = {
@@ -74,7 +101,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
   return (
     <html lang={locale}>
-      <body className={montserrat.className}>
+      <body className={`${montserrat.className} ${fiona.variable} `}>
         <DataProvider>
           <ModalProvider>
             <Providers params={{ locale }}>{children}</Providers>

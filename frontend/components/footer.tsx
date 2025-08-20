@@ -31,7 +31,7 @@ export default function Footer({ data }: Props) {
             transition={{ duration: 0.7, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-wide text-[#e6c65a]">
+            <h2 className="fiona text-6xl md:text-8xl font-bold tracking-wide text-[#e6c65a]">
               {t("footer.title")}
             </h2>
             <div className="w-16 h-1 bg-[#e6c65a] rounded mt-3 mb-6" />
