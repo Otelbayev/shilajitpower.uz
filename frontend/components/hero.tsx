@@ -24,7 +24,6 @@ export default function ShilajitHero({ data }: HeroProps) {
 
   return (
     <div
-      className="relative"
       style={{
         backgroundImage: "url('/bg1.png')",
         backgroundSize: "cover",
@@ -32,8 +31,6 @@ export default function ShilajitHero({ data }: HeroProps) {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="absolute  inset-0 bg-black/40"></div>
-
       <div className="container">
         <div
           className="relative min-h-screen py-10 lg:py-0 flex flex-col justify-center"

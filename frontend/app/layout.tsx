@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     siteName: "Shilajit Power",
     images: [
       {
-        url: "https://dezex.uz/1.webp",
+        url: "https://dezex.uz/1.png",
         width: 1200,
         height: 630,
         alt: "Shilajit Power – Tabiiy Kuch",
