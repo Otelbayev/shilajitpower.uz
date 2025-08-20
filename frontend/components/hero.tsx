@@ -23,14 +23,12 @@ export default function ShilajitHero({ data }: HeroProps) {
   const { t, i18n } = useTranslation();
 
   return (
-    <div
-      style={{
-        backgroundImage: "url('/bg1.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <div className="relative">
+      <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
+        style={{ backgroundImage: "url('/bg1.png')" }}
+      />
       <div className="container">
         <div
           className="relative min-h-screen py-10 lg:py-0 flex flex-col justify-center"

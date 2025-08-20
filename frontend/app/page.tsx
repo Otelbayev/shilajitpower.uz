@@ -157,39 +157,33 @@ export default function HomePage() {
         )}
       </AnimatePresence>
       <Hero data={data?.hero_section} />
-      <div
-        style={{
-          backgroundImage: "url('/bg2.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg2.png')" }}
+        />
         <Images data={data?.images} />
         <Why data={data?.why} />
       </div>
-      <div
-        style={{
-          backgroundImage: "url('/bg3.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg3.png')" }}
+        />
         <Superior data={data?.superior} />
         <Certificates
           data={data?.certificates}
           statistics={data?.statistics.slice(0, 4)}
         />
       </div>
-      <div
-        style={{
-          backgroundImage: "url('/bg4.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg4.png')" }}
+        />
         <div>
           <section id="order">
             <Price data={data?.prices} />
@@ -201,20 +195,16 @@ export default function HomePage() {
           />
         </div>
       </div>
-      <div
-        style={{
-          backgroundImage: "url('/bg2.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="relative z-80">
-          <Questions
-            data={data?.questions}
-            contacts={data?.contacts.slice(0, 2)}
-          />
-        </div>
+      <div className="relative">
+        <div className="absolute inset-0 w-full h-full bg-black/20 z-[-1]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat z-[-2]"
+          style={{ backgroundImage: "url('/bg2.png')" }}
+        />
+        <Questions
+          data={data?.questions}
+          contacts={data?.contacts.slice(0, 2)}
+        />
       </div>
       <section id="contact">
         <Footer data={data?.contacts} />
