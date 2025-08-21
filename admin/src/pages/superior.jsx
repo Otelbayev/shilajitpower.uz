@@ -22,7 +22,7 @@ const Superior = () => {
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
   const [editingId, setEditingId] = useState(null);
-  const [lang, setLang] = useState("uz"); // Til state
+  const [lang, setLang] = useState("uz");
 
   const fetchData = async (selectedLang = lang) => {
     try {
@@ -83,7 +83,7 @@ const Superior = () => {
       minTitle: record.minTitle,
       subTitle: record.subTitle,
       description: record.description,
-      fields: record.fields.join(", "),
+      fields: record.fields,
     });
     setEditingId(record.id);
     setOpen(true);
@@ -114,8 +114,10 @@ const Superior = () => {
       title: lang === "ru" ? "Поля" : "Fields",
       dataIndex: "fields",
       align: "center",
-      render: (fields) =>
-        fields?.length ? fields.map((f, i) => <Tag key={i}>{f}</Tag>) : null,
+      render: (fields) => {
+        const res = fields ? JSON.parse(fields) : [];
+        return res?.length ? res.map((f, i) => <Tag key={i}>{f}</Tag>) : null;
+      },
     },
     {
       title: lang === "ru" ? "Действия" : "Actions",

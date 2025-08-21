@@ -122,14 +122,14 @@ const Contacts = () => {
           >
             {lang === "ru" ? "Редактировать" : "Edit"}
           </Button>
-          <Button
+          {/* <Button
             size="small"
             danger
             icon={<DeleteOutlined />}
             onClick={() => handleDelete(record.id)}
           >
             {lang === "ru" ? "Удалить" : "Delete"}
-          </Button>
+          </Button> */}
         </Space>
       ),
     },
