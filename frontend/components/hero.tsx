@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./language-switcher";
+import Image from "next/image";
 
 interface HeroProps {
   data?: HeroSection;
@@ -120,7 +121,7 @@ export default function ShilajitHero({ data }: HeroProps) {
             </motion.div>
 
             <motion.div
-              className="hidden md:flex justify-center lg:justify-end"
+              className="flex justify-center lg:justify-end"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
@@ -131,18 +132,24 @@ export default function ShilajitHero({ data }: HeroProps) {
                 custom={0.3}
               >
                 <div className="rounded-2xl border border-[#e6c65a]/50 p-4 lg:p-8 w-75 lg:w-96 h-[350px] lg:h-[450px] backdrop-blur-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl group-hover:shadow-[#e6c65a]/20">
-                  <div className="flex flex-col items-center rounded-2xl border border-[#e6c65a]/50 justify-center h-full gap-3 bg-[#e6c65a]/10">
+                  <div className="flex relative flex-col items-center rounded-2xl border border-[#e6c65a]/50 justify-center h-full gap-3 bg-[#e6c65a]/10">
                     {/* <div className="w-36 h-36 sm:w-40 sm:h-40 bg-gradient-to-br from-[#e6c65a] to-[#d1b350] rounded-full flex items-center justify-center shadow-2xl transition-transform duration-300">
                     <span className="text-black font-bold text-3xl">
                       {data?.weight}
                     </span>
                   </div> */}
-                    <div className="text-center">
-                      <h3 className="text-[#e6c65a] fiona font-bold text-4xl tracking-wide">
+                    {/* <div className="text-center"> */}
+                    {/* <h3 className="text-[#e6c65a] fiona font-bold text-4xl tracking-wide">
                         {data?.title}
                       </h3>
-                      <p className="text-gray-400 text-base">{data?.badge}</p>
-                    </div>
+                      <p className="text-gray-400 text-base">{data?.badge}</p> */}
+                    {/* </div> */}
+                    <Image
+                      fill
+                      src={"/c1.png"}
+                      alt="img"
+                      className="object-cover"
+                    />
                   </div>
                 </div>
               </motion.div>
